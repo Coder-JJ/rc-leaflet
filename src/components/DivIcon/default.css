@@ -1,0 +1,13 @@
+.rc-leaflet-icon-default {
+  width: 25px;
+  text-align: center;
+  height: 41px;
+  line-height: 41px;
+  background-image: url("../../assets/images/point-default.png");
+  background-repeat: no-repeat;
+  color: #fff;
+  font-size: 16px;
+  letter-spacing: -0.33px;
+  outline: none;
+  user-select: none;
+}

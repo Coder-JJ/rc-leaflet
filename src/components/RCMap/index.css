@@ -1,0 +1,9 @@
+.rc-leaflet-wrap {
+  position: relative;
+  height: 100%;
+}
+
+.rc-leaflet-ref {
+  width: 100%;
+  height: 100%;
+}

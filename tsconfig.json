@@ -1,0 +1,13 @@
+{
+  "include": [
+    "./src/**/*"
+  ],
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "lib": ["ES2017", "DOM"],
+    "declaration": true,
+    "moduleResolution": "Node"
+  }
+}
