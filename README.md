@@ -8,33 +8,33 @@
 
 ## Features
 
-- Import on Demand (tree-shaking) `(v1.2.0+)`
+- Import on Demand (tree-shaking)
 
-- TypeScript support `(v2.0.0+)`
+- TypeScript support
 
-- RCMap scope Theme support `(v2.0.0+)`
+- RCMap scope Theme support
 
-- JSX support for Popup and Tooltip `(v2.0.0+)`
+- JSX support for Popup and Tooltip
 
 ## Components
 
 - [RCMap](#RCMap)
 
-- [Theme](#Theme) `(v2.0.0+)`
+- [Theme](#Theme)
 
-- [TileLayer](#TileLayer) `(v2.0.0+)`
+- [TileLayer](#TileLayer)
 
 - [Point](#Point)
 
-- [CircleMarker](#CircleMarker) `(v2.1.0+)`
+- [CircleMarker](#CircleMarker)
 
-- [Circle](#Circle) `(v1.2.0+)`
+- [Circle](#Circle)
 
 - [Polyline](#Polyline)
 
-- [Polygon](#Polygon) `(v2.1.0+)`
+- [Polygon](#Polygon)
 
-- [Rectangle](#Rectangle) `(v2.1.0+)`
+- [Rectangle](#Rectangle)
 
 - [Icon](#Icon)
 
@@ -44,7 +44,7 @@
 
 - [Tooltip](#Tooltip)
 
-## Configuration `(v1.1.0+)`
+## Configuration
 
 - CRS
 
@@ -85,7 +85,7 @@
 npm install rc-leaflet --save
 ```
 
-### Import on Demand `(v1.2.0+)`
+### Import on Demand
 
 ```cmd
 npm install babel-plugin-import --save
