@@ -1,7 +1,10 @@
+import React from 'react'
+import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
 import { Types } from '../../config'
 import InteractiveLayer from '../InteractiveLayer'
+import { Consumer as DivIconConsumer } from '../DivIcon'
 import { defaultIcon } from '../DivIcon/creator'
 
 interface RequiredProps {
@@ -49,5 +52,18 @@ export default class Point extends InteractiveLayer<L.Marker, Props> {
       point.setOpacity(opacity)
     }
     super.bindEvents(prevProps)
+  }
+
+  public render (): React.ReactNode {
+    const { icon } = this.props
+
+    return (
+      <>
+        { super.render() }
+        <DivIconConsumer>
+          { content => (icon instanceof L.DivIcon ? createPortal(content, this.instance.getElement()) : null) }
+        </DivIconConsumer>
+      </>
+    )
   }
 }

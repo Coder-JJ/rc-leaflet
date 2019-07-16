@@ -6,7 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "esModuleInterop": true,
-    "lib": ["ES2017", "DOM"],
+    "lib": ["es2017", "dom"],
     "declaration": true,
     "moduleResolution": "Node"
   }

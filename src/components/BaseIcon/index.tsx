@@ -38,41 +38,33 @@ export default abstract class BaseIcon<T extends L.Icon | L.DivIcon, P extends L
 
   protected constructor (props: Props & P) {
     super(props)
-
     const { layer, children, ...options } = props
 
     this.state = {
       instance: this.createInstance(options as P)
     }
-    if (layer) {
-      layer.setIcon(this.state.instance)
-    }
   }
 
-  public componentDidUpdate (prevProps: Props & P, prevState: { instance: T }): void {
-    const { layer: prevLayer } = prevProps
-    const { layer, children, ...options } = this.props
-    const { instance: prevIcon } = prevState
-    const { instance: icon } = this.state
+  public static getDerivedStateFromProps (nextProps, prevState): null {
+    const { layer, children, ...options } = nextProps
+    const { instance: icon } = prevState
 
-    if (icon === prevIcon) {
-      const instance = this.createInstance(options as P)
-
-      if (layer !== prevLayer && prevLayer) {
-        prevLayer.setIcon(defaultIcon)
-      }
-      if (layer) {
-        layer.setIcon(instance)
-      }
-      this.setState({ instance })
+    for (const [key, value] of Object.entries(options)) {
+      icon.options[key] = value
     }
+    if (layer) {
+      layer.setIcon(icon)
+    }
+    return null
   }
 
   public componentWillUnmount (): void {
     const { layer } = this.props
 
     if (layer) {
-      layer.setIcon(defaultIcon)
+      setTimeout(() => {
+        layer.setIcon(defaultIcon)
+      }, 0)
     }
   }
 

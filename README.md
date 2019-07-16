@@ -685,12 +685,12 @@ import { RCMap, DivIcon, Point } from 'rc-leaflet'
 
 (
   <RCMap>
-    <DivIcon>
+    <DivIcon content={<div>must be single jsx element content.</div>}>
       <Point />
     </DivIcon>
 
     <Point>
-      <DivIcon />
+      <DivIcon content={<div>must be single jsx element content.</div>} />
     </Point>
   </RCMap>
 )
@@ -708,15 +708,15 @@ import { RCMap, DivIcon, Point } from 'rc-leaflet'
 
   - the className of DivIcon container.
 
-- html
+- content
 
-  - type: `string | HTMLElement`
+  - type: `React.ReactElement`
 
-  - default: `''`
+  - default: `null`
 
   - required: `false`
 
-  - custom HTML code to put inside the div element, empty by default. Alternatively, an instance of HTMLElement.
+  - custom `JSX` code to put inside the div element, empty by default. Alternatively, an instance of `React.ReactElement`.
 
 - bgPos
 
@@ -787,16 +787,6 @@ import { RCMap, Popup, Point, CircleMarker, Circle, Polyline } from 'rc-leaflet'
   - required: `false`
 
   - position is needed only when popup is set directly under the map component.
-
-- content
-
-  - type: `string | HTMLElement | Function`
-
-  - default: `undefined`
-
-  - required: `false`
-
-  - sets the HTML content of the popup. If a function is passed the source layer will be passed to the function. The function should return a String or HTMLElement to be used in the popup.
 
 - maxWidth
 
@@ -1009,16 +999,6 @@ import { RCMap, Tooltip, Point, CircleMarker, Circle, Polyline } from 'rc-leafle
   - required: `false`
 
   - position is needed only when Tooltip is set directly under the map component.
-
-- content
-
-  - type: `string | HTMLElement | Function`
-
-  - default: `undefined`
-
-  - required: `false`
-
-  - sets the HTML content of the tooltip. If a function is passed the source layer will be passed to the function. The function should return a String or HTMLElement to be used in the tooltip.
 
 - pane
 

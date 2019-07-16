@@ -29,7 +29,6 @@ export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions>
 
   protected constructor (props: Props & P, context: ContextType) {
     super(props)
-
     const { children, ...restProps } = props
 
     this.instance = this.createInstance({ ...this.getOptions(), ...restProps } as P)
