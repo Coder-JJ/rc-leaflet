@@ -44,14 +44,10 @@ export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extend
 
   protected constructor (props: Props & P) {
     super(props)
-
     const { layer, position, children, onOpen, onClose, ...options } = props
     const overlay = this.createInstance(options as P)
 
     overlay.on({ add: this.onOpen, remove: this.onClose })
-    if (layer) {
-      this.bindOnLayer(layer)
-    }
     this.instance = overlay
   }
 
@@ -59,7 +55,9 @@ export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extend
     const { layer, position } = this.props
     const overlay = this.instance
 
-    if (!layer && position) {
+    if (layer) {
+      this.bindOnLayer(layer)
+    } else if (position) {
       overlay.setLatLng(position)
       if (this.context.map) {
         this.openOnMap()
@@ -113,25 +111,18 @@ export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extend
   private update (options: P): void {
     const overlay = this.instance
 
-    let shouldUpdate = false
     for (const [key, value] of Object.entries(options)) {
       if (value !== overlay.options[key]) {
-        shouldUpdate = true
         overlay.options[key] = value
       }
     }
-    if (shouldUpdate) {
-      overlay.update()
-    }
+    overlay.update()
   }
 
   public render (): React.ReactNode {
     const { children } = this.props
     const overlay = this.instance as { _contentNode?: Element }
 
-    if (children && overlay._contentNode) {
-      return createPortal(children, overlay._contentNode)
-    }
-    return null
+    return overlay._contentNode ? createPortal(children, overlay._contentNode) : null
   }
 }
