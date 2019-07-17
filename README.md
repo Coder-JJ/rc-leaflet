@@ -88,7 +88,7 @@ npm install rc-leaflet --save
 ### Import on Demand
 
 ```cmd
-npm install babel-plugin-import --save
+npm install babel-plugin-import --save-dev
 ```
 
 ```js
@@ -253,6 +253,36 @@ import { RCMap } from 'rc-leaflet'
   - required: `false`
 
   - when this option is set, the map restricts the view to the given geographical bounds, bouncing the user back if the user tries to pan outside the view. To set the restriction dynamically.
+
+- onZoom
+
+  - type: `Function`
+
+  - default: `noop function`
+
+  - required: `false`
+
+  - fired repeatedly during any change in zoom level, including zoom and fly animations.
+
+- onZoomStart
+
+  - type: `Function`
+
+  - default: `noop function`
+
+  - required: `false`
+
+  - fired when the map zoom is about to change (e.g. before zoom animation).
+
+- onZoomEnd
+
+  - type: `Function`
+
+  - default: `noop function`
+
+  - required: `false`
+
+  - fired when the map has changed, after any animations.
 
 - onInit
 
