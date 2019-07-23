@@ -10,7 +10,7 @@ interface PartialProps {
 
 type Props = Readonly<Partial<PartialProps>>
 
-export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions> extends Evented<T, Props & P> {
+export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions, S = {}> extends Evented<T, Props & P, S> {
   protected static propTypes = {
     ...Evented.propTypes,
     pane: PropTypes.string,
@@ -18,20 +18,15 @@ export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions>
     children: PropTypes.node
   }
 
-  protected static defaultProps: typeof Evented.defaultProps & PartialProps = {
-    ...Evented.defaultProps,
-    children: null
-  }
-
   public static contextType = Context
 
   public context: ContextType
 
   protected constructor (props: Props & P, context: ContextType) {
-    super(props)
+    super(props, context)
     const { children, ...restProps } = props
 
-    this.instance = this.createInstance({ ...this.getOptions(), ...restProps } as P)
+    this.instance = this.createInstance({ ...this.getTheme(), ...restProps } as P)
     if (context.map) {
       this.instance.addTo(context.map)
     }
@@ -43,7 +38,7 @@ export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions>
 
   protected abstract createInstance (props: P): T
 
-  protected getOptions (context?: ContextType): object {
+  protected getTheme (): object {
     return {}
   }
 

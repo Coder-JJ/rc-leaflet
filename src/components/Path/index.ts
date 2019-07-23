@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import { ContextType } from '../RCMap'
 import InteractiveLayer from '../InteractiveLayer'
 
 export default abstract class Path<T extends L.Path, P extends L.PathOptions> extends InteractiveLayer<T, P> {
@@ -10,20 +9,20 @@ export default abstract class Path<T extends L.Path, P extends L.PathOptions> ex
     color: PropTypes.string,
     weight: PropTypes.number,
     opacity: PropTypes.number,
-    lineCap: PropTypes.oneOf(['butt', 'round', 'square', 'inherit']),
-    lineJoin: PropTypes.oneOf(['miter', 'round', 'bevel', 'inherit']),
+    lineCap: PropTypes.oneOf<'butt' | 'round' | 'square' | 'inherit'>(['butt', 'round', 'square', 'inherit']),
+    lineJoin: PropTypes.oneOf<'miter' | 'round' | 'bevel' | 'inherit'>(['miter', 'round', 'bevel', 'inherit']),
     dashArray: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.number)]),
     dashOffset: PropTypes.string,
     fill: PropTypes.bool,
     fillColor: PropTypes.string,
     fillOpacity: PropTypes.number,
-    fillRule: PropTypes.oneOf(['nonzero', 'evenodd', 'inherit']),
+    fillRule: PropTypes.oneOf<'nonzero' | 'evenodd' | 'inherit'>(['nonzero', 'evenodd', 'inherit']),
     renderer: PropTypes.instanceOf(L.Renderer),
     className: PropTypes.string
   }
 
   protected setStyle (): void {
-    const theme = this.getOptions(this.context)
+    const theme = this.getTheme()
     const path = this.instance
 
     let shouldUpdate = false
@@ -38,9 +37,9 @@ export default abstract class Path<T extends L.Path, P extends L.PathOptions> ex
     }
   }
 
-  protected getOptions (context: ContextType): L.PathOptions {
-    if (context && context.theme && context.theme.path) {
-      return context.theme.path
+  protected getTheme (): L.PathOptions {
+    if (this.context && this.context.theme && this.context.theme.path) {
+      return this.context.theme.path
     }
     return {}
   }
