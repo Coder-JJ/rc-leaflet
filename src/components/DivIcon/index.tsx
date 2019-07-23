@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
 import { Types } from '../../config'
-import creator, { defaultOptions } from './creator'
+import creator from './creator'
 import BaseIcon, { Props as BaseIconProps } from '../BaseIcon'
 
 interface PartialProps {
@@ -12,14 +12,18 @@ interface PartialProps {
 
 type Props = Readonly<Partial<PartialProps> & BaseIconProps & L.DivIconOptions>
 
-const Context = createContext<React.ReactElement>(null)
+interface State {
+  instance: L.DivIcon
+}
+
+const Context = createContext<React.ReactElement>(undefined)
 
 export const Consumer = Context.Consumer
 
 export default class DivIcon extends BaseIcon<L.DivIcon, Props> {
   protected static propTypes = {
     ...BaseIcon.propTypes,
-    html: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([false])]),
+    html: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf<false>([false])]),
     bgPos: Types.Pixel,
     iconSize: Types.Pixel,
     iconAnchor: Types.Pixel,
@@ -28,20 +32,18 @@ export default class DivIcon extends BaseIcon<L.DivIcon, Props> {
     content: PropTypes.element
   }
 
-  protected static defaultProps: typeof BaseIcon.defaultProps & typeof defaultOptions & PartialProps = {
-    ...BaseIcon.defaultProps,
-    ...defaultOptions,
-    content: null
-  }
-
-  public static getDerivedStateFromProps (nextProps, prevState): null {
+  public static getDerivedStateFromProps (nextProps: Props, prevState: State): State {
     const { layer, children, html, ...options } = nextProps
-    const { instance: icon } = prevState
+    let { instance: icon } = prevState
 
     if (layer) {
-      icon.options.html = layer.getElement() ? layer.getElement().firstElementChild : null
+      (options as any).html = layer.getElement() ? layer.getElement().firstElementChild : undefined
     }
-    return BaseIcon.getDerivedStateFromProps({ layer, ...options }, prevState)
+    icon = creator(options)
+    if (layer) {
+      layer.setIcon(icon)
+    }
+    return { instance: icon }
   }
 
   protected createInstance ({ html, ...options }: L.DivIconOptions): L.DivIcon {

@@ -29,13 +29,6 @@ export default abstract class BaseIcon<T extends L.Icon | L.DivIcon, P extends L
     children: PropTypes.node
   }
 
-  protected static defaultProps: PartialProps = {
-    layer: null,
-    children: null
-  }
-
-  public readonly state: { instance: T }
-
   protected constructor (props: Props & P) {
     super(props)
     const { layer, children, ...options } = props
@@ -43,19 +36,6 @@ export default abstract class BaseIcon<T extends L.Icon | L.DivIcon, P extends L
     this.state = {
       instance: this.createInstance(options as P)
     }
-  }
-
-  public static getDerivedStateFromProps (nextProps, prevState): null {
-    const { layer, children, ...options } = nextProps
-    const { instance: icon } = prevState
-
-    for (const [key, value] of Object.entries(options)) {
-      icon.options[key] = value
-    }
-    if (layer) {
-      layer.setIcon(icon)
-    }
-    return null
   }
 
   public componentWillUnmount (): void {
