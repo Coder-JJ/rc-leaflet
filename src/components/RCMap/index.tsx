@@ -1,6 +1,6 @@
 import 'leaflet/dist/leaflet.css'
 import './index.css'
-import React, { Component, createContext } from 'react'
+import React, { PureComponent, createContext } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { ClassValue } from 'classnames/types'
@@ -8,20 +8,11 @@ import L from 'leaflet'
 import { Types } from '../../config'
 import { Theme, ThemeContext, ThemeContextType } from '../Theme'
 
-type Instance = L.Map | null
-
 interface PartialProps {
   className: ClassValue
-  center: L.LatLngExpression
-  crs: L.CRS
-  layers: L.Layer[]
-  minZoom: number
-  maxZoom: number
-  zoom: number
   flyToBounds: boolean
   bounds: L.LatLngBoundsExpression
   boundsOptions: L.FitBoundsOptions
-  maxBounds: L.LatLngBoundsExpression
   children: React.ReactNode
   onZoom: L.LeafletEventHandlerFn
   onZoomStart: L.LeafletEventHandlerFn
@@ -29,10 +20,10 @@ interface PartialProps {
   onInit (map: L.Map): void
 }
 
-type Props = Readonly<Partial<PartialProps>>
+type Props = Readonly<Partial<PartialProps> & L.MapOptions>
 
 type State = Readonly<{
-  map: Instance
+  map: L.Map
   theme: Theme
 }>
 
@@ -40,19 +31,50 @@ export const Context = createContext<State>(null)
 
 export type ContextType = React.ContextType<typeof Context>
 
-export default class RCMap extends Component<Props, State> {
+export default class RCMap extends PureComponent<Props, State> {
   protected static propTypes = {
     className: Types.ClassValue,
-    center: Types.Point,
+    preferCanvas: PropTypes.bool,
+    attributionControl: PropTypes.bool,
+    zoomControl: PropTypes.bool,
+    closePopupOnClick: PropTypes.bool,
+    zoomSnap: PropTypes.number,
+    zoomDelta: PropTypes.number,
+    trackResize: PropTypes.bool,
+    boxZoom: PropTypes.bool,
+    doubleClickZoom: Types.Zoom,
+    dragging: PropTypes.bool,
     crs: Types.CRS,
-    layers: PropTypes.arrayOf(PropTypes.instanceOf(L.Layer)),
+    center: Types.Point,
+    zoom: PropTypes.number,
     minZoom: PropTypes.number,
     maxZoom: PropTypes.number,
-    zoom: PropTypes.number,
+    layers: PropTypes.arrayOf(PropTypes.instanceOf(L.Layer)),
+    maxBounds: Types.Bounds,
+    renderer: PropTypes.instanceOf(L.Renderer),
+    zoomAnimation: PropTypes.bool,
+    zoomAnimationThreshold: PropTypes.number,
+    fadeAnimation: PropTypes.bool,
+    markerZoomAnimation: PropTypes.bool,
+    transform3DLimit: PropTypes.number,
+    inertia: PropTypes.bool,
+    inertiaDeceleration: PropTypes.number,
+    inertiaMaxSpeed: PropTypes.number,
+    easeLinearity: PropTypes.number,
+    worldCopyJump: PropTypes.bool,
+    maxBoundsViscosity: PropTypes.number,
+    keyboard: PropTypes.bool,
+    keyboardPanDelta: PropTypes.number,
+    scrollWheelZoom: Types.Zoom,
+    wheelDebounceTime: PropTypes.number,
+    wheelPxPerZoomLevel: PropTypes.number,
+    tap: PropTypes.bool,
+    tapTolerance: PropTypes.number,
+    touchZoom: Types.Zoom,
+    bounceAtZoomLimits: PropTypes.bool,
     flyToBounds: PropTypes.bool,
     bounds: Types.Bounds,
     boundsOptions: Types.BoundsOptions,
-    maxBounds: Types.Bounds,
     children: PropTypes.node,
     onZoom: PropTypes.func,
     onZoomStart: PropTypes.func,
@@ -60,23 +82,17 @@ export default class RCMap extends Component<Props, State> {
     onInit: PropTypes.func
   }
 
-  protected static defaultProps: PartialProps = {
+  protected static defaultProps: Props = {
     className: undefined,
-    center: undefined,
-    crs: L.CRS.EPSG3857,
-    layers: [],
+    attributionControl: false,
+    zoomControl: false,
+    zoom: 15,
     minZoom: 1,
     maxZoom: 18,
-    zoom: 15,
     flyToBounds: true,
     bounds: undefined,
     boundsOptions: undefined,
-    maxBounds: undefined,
-    children: null,
-    onZoom (e: L.LeafletEvent) {},
-    onZoomStart (e: L.LeafletEvent) {},
-    onZoomEnd (e: L.LeafletEvent) {},
-    onInit (map: L.Map) {}
+    children: null
   }
 
   public static contextType = ThemeContext
@@ -91,53 +107,29 @@ export default class RCMap extends Component<Props, State> {
   private ref = React.createRef<HTMLDivElement>()
 
   public componentDidMount (): void {
-    if (this.ref.current) {
-      const { crs, layers, center, minZoom, maxZoom, zoom, flyToBounds, bounds, boundsOptions, maxBounds, onZoom, onZoomStart, onZoomEnd, onInit } = this.props
+    const { center, flyToBounds, bounds, boundsOptions, onZoom, onZoomStart, onZoomEnd, onInit, ...options } = this.props
 
-      const map = L.map(this.ref.current, {
-        crs,
-        layers,
-        zoom,
-        minZoom,
-        maxZoom,
-        zoomSnap: 1,
-        zoomControl: false
-      })
-
-      if (maxBounds) {
-        map.setMaxBounds(maxBounds)
+    const map = L.map(this.ref.current, options)
+    if (bounds) {
+      if (center && flyToBounds) {
+        map.flyToBounds(bounds, boundsOptions)
+      } else {
+        map.fitBounds(bounds, boundsOptions)
       }
-      if (center) {
-        map.panTo(center)
-      }
-      if (bounds) {
-        if (flyToBounds) {
-          map.flyToBounds(bounds, boundsOptions)
-        } else {
-          map.fitBounds(bounds, boundsOptions)
-        }
-      }
-      map.on({ zoom: onZoom, zoomstart: onZoomStart, zoomend: onZoomEnd })
-      onInit(map)
-      this.setState({ map, theme: this.context })
+    } else if (center) {
+      map.panTo(center)
     }
-  }
-
-  public shouldComponentUpdate (nextProps: Props, nextState: State, nextContext: ThemeContextType): boolean {
-    const { layers, center, minZoom, maxZoom, zoom, bounds, maxBounds, children, onZoom, onZoomStart, onZoomEnd } = this.props
-    const { layers: nextLayers, center: nextCenter, minZoom: nextMinZoom, maxZoom: nextMaxZoom, zoom: nextZoom, bounds: nextBounds, maxBounds: nextMaxBounds, children: nextChildren, onZoom: nextOnZoom, onZoomStart: nextOnZoomStart, onZoomEnd: nextOnZoomEnd } = nextProps
-    const { map, theme } = this.state
-    const { map: nextMap, theme: nextTheme } = nextState
-    const context = this.context
-
-    return layers !== nextLayers || center !== nextCenter || minZoom !== nextMinZoom || maxZoom !== nextMaxZoom || zoom !== nextZoom || bounds !== nextBounds || maxBounds !== nextMaxBounds || children !== nextChildren || onZoom !== nextOnZoom || onZoomStart !== nextOnZoomStart || onZoomEnd !== nextOnZoomEnd || map !== nextMap || theme !== nextTheme || context !== nextContext
+    map.on({ zoom: this.onZoom, zoomstart: this.onZoomStart, zoomend: this.onZoomEnd })
+    onInit && onInit(map)
+    this.setState({ map, theme: this.context })
   }
 
   public componentDidUpdate (prevProps: Props): void {
-    const { layers: prevLayers, center: prevCenter, minZoom: prevMinZoom, maxZoom: prevMaxZoom, zoom: prevZoom, bounds: prevBounds, maxBounds: prevMaxBounds, onZoom: prevOnZoom, onZoomStart: prevOnZoomStart, onZoomEnd: prevOnZoomEnd } = prevProps
-    const { layers, center, minZoom, maxZoom, zoom, flyToBounds, bounds, boundsOptions, maxBounds, onZoom, onZoomStart, onZoomEnd } = this.props
+    const { center: prevCenter, zoom: prevZoom, minZoom: prevMinZoom, maxZoom: prevMaxZoom, layers: prevLayers, maxBounds: prevMaxBounds, bounds: prevBounds } = prevProps
+    const { className, center, zoom, minZoom, maxZoom, layers, maxBounds, flyToBounds, bounds, boundsOptions, children, onZoom, onZoomStart, onZoomEnd, onInit, ...options } = this.props
     const { map, theme } = this.state
 
+    Object.assign(map.options, options)
     if (layers !== prevLayers) {
       if (prevLayers && prevLayers.length) {
         for (const layer of prevLayers) {
@@ -150,19 +142,6 @@ export default class RCMap extends Component<Props, State> {
         }
       }
     }
-    if (maxBounds && maxBounds !== prevMaxBounds) {
-      map.setMaxBounds(maxBounds)
-    }
-    if (center && center !== prevCenter) {
-      map.panTo(center)
-    }
-    if (bounds && bounds !== prevBounds) {
-      if (flyToBounds) {
-        map.flyToBounds(bounds, boundsOptions)
-      } else {
-        map.fitBounds(bounds, boundsOptions)
-      }
-    }
     if (minZoom && minZoom !== prevMinZoom) {
       map.setMinZoom(minZoom)
     }
@@ -172,29 +151,17 @@ export default class RCMap extends Component<Props, State> {
     if (zoom && zoom !== prevZoom) {
       map.setZoom(zoom)
     }
-    if (onZoom !== prevOnZoom) {
-      if (prevOnZoom) {
-        map.off('zoom', prevOnZoom)
-      }
-      if (onZoom) {
-        map.on('zoom', onZoom)
-      }
+    if (maxBounds !== prevMaxBounds) {
+      map.setMaxBounds(maxBounds)
     }
-    if (onZoomStart !== prevOnZoomStart) {
-      if (prevOnZoomStart) {
-        map.off('zoomstart', prevOnZoomStart)
+    if (bounds && bounds !== prevBounds) {
+      if (prevCenter && flyToBounds) {
+        map.flyToBounds(bounds, boundsOptions)
+      } else {
+        map.fitBounds(bounds, boundsOptions)
       }
-      if (onZoomStart) {
-        map.on('zoomstart', onZoomStart)
-      }
-    }
-    if (onZoomEnd !== prevOnZoomEnd) {
-      if (prevOnZoomEnd) {
-        map.off('zoomend', prevOnZoomEnd)
-      }
-      if (onZoomEnd) {
-        map.on('zoomend', onZoomEnd)
-      }
+    } else if (center && center !== prevCenter) {
+      map.panTo(center)
     }
     if (theme !== this.context) {
       this.setState({ theme: this.context })
@@ -208,6 +175,12 @@ export default class RCMap extends Component<Props, State> {
       map.remove()
     }
   }
+
+  private onZoom = (e: L.LeafletEvent): void => this.props.onZoom && this.props.onZoom(e)
+
+  private onZoomStart = (e: L.LeafletEvent): void => this.props.onZoomStart && this.props.onZoomStart(e)
+
+  private onZoomEnd = (e: L.LeafletEvent): void => this.props.onZoomEnd && this.props.onZoomEnd(e)
 
   public render (): React.ReactNode {
     const { className, children } = this.props

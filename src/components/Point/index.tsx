@@ -38,12 +38,15 @@ export default class Point extends InteractiveLayer<L.Marker, Props> {
   }
 
   public componentDidUpdate (prevProps: Props): void {
-    const { position: prevPosition, zIndexOffset: prevZIndexOffset, opacity: prevOpacity } = prevProps
-    const { position, zIndexOffset, opacity } = this.props
+    const { position: prevPosition, icon: prevIcon, zIndexOffset: prevZIndexOffset, opacity: prevOpacity } = prevProps
+    const { position, icon, zIndexOffset, opacity } = this.props
     const point = this.instance
 
     if (position !== prevPosition) {
       point.setLatLng(position)
+    }
+    if (icon !== prevIcon) {
+      point.setIcon(icon)
     }
     if (zIndexOffset !== prevZIndexOffset) {
       point.setZIndexOffset(zIndexOffset)

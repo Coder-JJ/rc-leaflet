@@ -3,11 +3,12 @@ import { withShape } from 'airbnb-prop-types'
 import L from 'leaflet'
 
 const ClassValueTypes = [PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object, PropTypes.oneOf<null>([null]), PropTypes.oneOf<undefined>([undefined])]
-
 const ClassValue = PropTypes.oneOfType([...ClassValueTypes, PropTypes.arrayOf(PropTypes.oneOfType(ClassValueTypes))])
 
-const PointObject = PropTypes.shape({ lat: PropTypes.number, lng: PropTypes.number })
-const PointTuple: PropTypes.Requireable<[number, number]> = withShape<[number, number], number[], { length: number }>(PropTypes.arrayOf(PropTypes.number), { length: PropTypes.oneOf([2]) })
+const Zoom = PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf<'center'>(['center'])])
+
+const PointObject = PropTypes.shape({ lat: PropTypes.number.isRequired, lng: PropTypes.number.isRequired })
+const PointTuple: PropTypes.Requireable<[number, number]> = withShape<[number, number], number[], { length: number }>(PropTypes.arrayOf(PropTypes.number.isRequired), { length: PropTypes.oneOf<2>([2]) })
 const PixelTuple: PropTypes.Requireable<[number, number]> = PointTuple
 
 const CRS = PropTypes.shape({
@@ -114,6 +115,7 @@ const TileLayerOptionsShape = {
 
 export {
   ClassValue,
+  Zoom,
   CRS,
   Point,
   PointBounds,

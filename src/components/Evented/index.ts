@@ -10,17 +10,11 @@ interface MouseEvents {
 
 export type Props = Readonly<Partial<MouseEvents>>
 
-export default abstract class Evented<T extends L.Evented, P> extends PureComponent<Props & P> {
+export default abstract class Evented<T extends L.Evented, P, S> extends PureComponent<Props & P, S> {
   protected static propTypes = {
     onClick: PropTypes.func,
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func
-  }
-
-  protected static defaultProps: MouseEvents = {
-    onClick: null,
-    onMouseOver: null,
-    onMouseOut: null
   }
 
   protected instance: T
@@ -30,7 +24,7 @@ export default abstract class Evented<T extends L.Evented, P> extends PureCompon
   }
 
   protected bindEvents (prevProps?: Props & P): void {
-    for (const key of Object.keys(Evented.defaultProps)) {
+    for (const key of Object.keys(Evented.propTypes)) {
       const prevHandler = (prevProps && prevProps[key]) || null
       const handler = this.props[key]
 

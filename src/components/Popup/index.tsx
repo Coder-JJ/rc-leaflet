@@ -20,10 +20,8 @@ export default class Popup extends DivOverlay<L.Popup, L.PopupOptions> {
     closeOnEscapeKey: PropTypes.bool
   }
 
-  protected static defaultProps: typeof DivOverlay.defaultProps & L.PopupOptions = {
-    ...DivOverlay.defaultProps,
+  protected static defaultProps: L.PopupOptions = {
     pane: 'popupPane',
-    offset: [0, 7],
     closeOnClick: true,
     zoomAnimation: true
   }

@@ -28,14 +28,6 @@ export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extend
     onClose: PropTypes.func
   }
 
-  protected static defaultProps: Props = {
-    layer: null,
-    position: undefined,
-    children: null,
-    onOpen: null,
-    onClose: null
-  }
-
   public static contextType = Context
 
   public context: ContextType
@@ -95,13 +87,13 @@ export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extend
   protected abstract closeOnMap (): void
 
   private onOpen = (e: L.LeafletEvent): void => {
-    const { onOpen } = this.props as { onOpen?: L.LeafletEventHandlerFn }
+    const { onOpen } = this.props
 
     this.forceUpdate(() => onOpen && onOpen(e))
   }
 
   private onClose = (e: L.LeafletEvent): void => {
-    const { onClose } = this.props as { onClose?: L.LeafletEventHandlerFn }
+    const { onClose } = this.props
 
     if (onClose) {
       onClose(e)

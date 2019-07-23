@@ -23,7 +23,7 @@ export default class TileLayer extends Component<Props> {
   private instance: L.TileLayer
 
   protected constructor (props: Props, context: ContextType) {
-    super(props)
+    super(props, context)
     const { url, ...options } = props
 
     this.instance = L.tileLayer(url, options)
