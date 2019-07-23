@@ -39,7 +39,7 @@
     "no-empty": [2, { "allowEmptyCatch": true }],
     "array-callback-return": 2,
     "block-scoped-var": 2,
-    "consistent-return": [2, { "treatUndefinedAsUnspecified": true }],
+    "consistent-return": 2,
     "curly": 2,
     "dot-location": [2, "property"],
     "dot-notation": [2, { "allowKeywords": false }],
@@ -78,7 +78,7 @@
     "no-sequences": 2,
     "no-throw-literal": 2,
     "no-unmodified-loop-condition": 2,
-    "no-unused-expressions": 2,
+    "no-unused-expressions": [2, { "allowShortCircuit": true, "allowTernary": true, "allowTaggedTemplates": true }],
     "no-useless-call": 2,
     "no-useless-concat": 2,
     "no-useless-return": 2,
@@ -140,8 +140,8 @@
     "padded-blocks": [2, "never"],
     "padding-line-between-statements": [
       2,
-      { "blankLine": "always", "prev": ["cjs-import", "const", "directive", "function", "import"], "next": "*" },
-      { "blankLine": "any", "prev": ["cjs-import", "const", "directive", "import"], "next": ["cjs-import", "const", "directive", "import"] },
+      { "blankLine": "always", "prev": ["cjs-import", "directive", "function", "import"], "next": "*" },
+      { "blankLine": "any", "prev": ["cjs-import", "directive", "import"], "next": ["cjs-import", "directive", "import"] },
       { "blankLine": "always", "prev": "*", "next": ["cjs-export", "export"] },
       { "blankLine": "always", "prev": "class", "next": "class" }
     ],
