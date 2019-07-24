@@ -3,7 +3,7 @@ import L from 'leaflet'
 import InteractiveLayer from '../InteractiveLayer'
 
 export default abstract class Path<T extends L.Path, P extends L.PathOptions> extends InteractiveLayer<T, P> {
-  protected static propTypes = {
+  public static propTypes = {
     ...InteractiveLayer.propTypes,
     stroke: PropTypes.bool,
     color: PropTypes.string,

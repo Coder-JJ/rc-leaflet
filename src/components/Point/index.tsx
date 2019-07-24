@@ -14,7 +14,7 @@ interface RequiredProps {
 type Props = Readonly<RequiredProps & L.MarkerOptions>
 
 export default class Point extends InteractiveLayer<L.Marker, Props> {
-  protected static propTypes = {
+  public static propTypes = {
     ...InteractiveLayer.propTypes,
     position: Types.Point.isRequired,
     zIndexOffset: PropTypes.number,

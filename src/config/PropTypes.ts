@@ -47,6 +47,8 @@ const Pixel: PixelType = PropTypes.oneOfType<typeof PixelTuple | PropTypes.Requi
   PropTypes.instanceOf(L.Point)
 ])
 
+const Icon = PropTypes.oneOfType<PropTypes.Requireable<L.Icon> | PropTypes.Requireable<L.DivIcon>>([PropTypes.instanceOf(L.Icon), PropTypes.instanceOf(L.DivIcon)])
+
 type BoundsType = PropTypes.Requireable<[number, number][] | L.LatLngBounds>
 
 const Bounds: BoundsType = PropTypes.oneOfType<PropTypes.Requireable<[number, number][]> | PropTypes.Requireable<L.LatLngBounds>>([
@@ -120,6 +122,7 @@ export {
   Point,
   PointBounds,
   Pixel,
+  Icon,
   Bounds,
   BoundsOptions,
   LayerOptionsShape,

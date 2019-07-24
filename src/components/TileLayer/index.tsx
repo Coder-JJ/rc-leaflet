@@ -11,7 +11,7 @@ interface RequiredProps {
 type Props = Readonly<RequiredProps & L.TileLayerOptions>
 
 export default class TileLayer extends Component<Props> {
-  protected static propTypes = {
+  public static propTypes = {
     ...Types.TileLayerOptionsShape,
     url: PropTypes.string.isRequired
   }

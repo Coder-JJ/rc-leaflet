@@ -32,7 +32,7 @@ export const Context = createContext<State>(null)
 export type ContextType = React.ContextType<typeof Context>
 
 export default class RCMap extends PureComponent<Props, State> {
-  protected static propTypes = {
+  public static propTypes = {
     className: Types.ClassValue,
     preferCanvas: PropTypes.bool,
     attributionControl: PropTypes.bool,
@@ -82,7 +82,7 @@ export default class RCMap extends PureComponent<Props, State> {
     onInit: PropTypes.func
   }
 
-  protected static defaultProps: Props = {
+  public static defaultProps: Props = {
     className: undefined,
     attributionControl: false,
     zoomControl: false,

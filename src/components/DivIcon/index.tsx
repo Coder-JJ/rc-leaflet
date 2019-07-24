@@ -21,7 +21,7 @@ const Context = createContext<React.ReactElement>(undefined)
 export const Consumer = Context.Consumer
 
 export default class DivIcon extends BaseIcon<L.DivIcon, Props> {
-  protected static propTypes = {
+  public static propTypes = {
     ...BaseIcon.propTypes,
     html: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf<false>([false])]),
     bgPos: Types.Pixel,

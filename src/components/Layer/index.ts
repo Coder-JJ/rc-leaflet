@@ -11,7 +11,7 @@ interface PartialProps {
 type Props = Readonly<Partial<PartialProps>>
 
 export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions, S = {}> extends Evented<T, Props & P, S> {
-  protected static propTypes = {
+  public static propTypes = {
     ...Evented.propTypes,
     pane: PropTypes.string,
     attribution: PropTypes.string,

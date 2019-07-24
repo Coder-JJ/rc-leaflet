@@ -12,7 +12,7 @@ interface PartialProps {
 export type Props = Readonly<Partial<PartialProps>>
 
 export default abstract class BaseIcon<T extends L.Icon | L.DivIcon, P extends L.BaseIconOptions> extends PureComponent<Props & P, { instance: T }> {
-  protected static propTypes = {
+  public static propTypes = {
     ...Types.LayerOptionsShape,
     iconUrl: PropTypes.string,
     iconRetinaUrl: PropTypes.string,

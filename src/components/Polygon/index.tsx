@@ -10,7 +10,7 @@ interface RequiredProps {
 type Props = Readonly<RequiredProps>
 
 export default class Polygon<P extends L.PolylineOptions = L.PolylineOptions> extends Path<L.Polygon, Props & P> {
-  protected static propTypes = {
+  public static propTypes = {
     ...Path.propTypes,
     points: PropTypes.oneOfType([PropTypes.arrayOf(Types.Point), PropTypes.arrayOf(PropTypes.arrayOf(Types.Point))]).isRequired,
     smoothFactor: PropTypes.number,

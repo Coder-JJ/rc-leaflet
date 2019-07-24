@@ -4,7 +4,7 @@ import { Types } from '../../config'
 import DivOverlay from '../DivOverlay'
 
 export default class Tooltip extends DivOverlay<L.Tooltip, L.TooltipOptions> {
-  protected static propTypes = {
+  public static propTypes = {
     ...DivOverlay.propTypes,
     pane: PropTypes.string,
     offset: Types.Pixel,
@@ -15,7 +15,7 @@ export default class Tooltip extends DivOverlay<L.Tooltip, L.TooltipOptions> {
     opacity: PropTypes.number
   }
 
-  protected static defaultProps: L.TooltipOptions = {
+  public static defaultProps: L.TooltipOptions = {
     direction: 'top'
   }
 

@@ -3,6 +3,8 @@ import { ThemeProvider as Theme } from './Theme'
 import RCMap from './RCMap'
 import TileLayer from './TileLayer'
 import Point from './Point'
+import MassPoints from './MassPoints'
+import ClusterPoints from './ClusterPoints'
 import CircleMarker from './CircleMarker'
 import Circle from './Circle'
 import Polyline from './Polyline'
@@ -19,6 +21,8 @@ export {
   RCMap,
   TileLayer,
   Point,
+  MassPoints,
+  ClusterPoints,
   CircleMarker,
   Circle,
   Polyline,

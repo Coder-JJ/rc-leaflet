@@ -10,7 +10,7 @@ interface RequiredProps {
 type Props = Readonly<RequiredProps>
 
 export default class Rectangle<P extends L.PolylineOptions = L.PolylineOptions> extends Path<L.Rectangle, Props & P> {
-  protected static propTypes = {
+  public static propTypes = {
     ...Path.propTypes,
     bounds: Types.PointBounds.isRequired,
     smoothFactor: PropTypes.number,

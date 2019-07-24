@@ -9,12 +9,16 @@ interface RequiredProps {
 
 export type Props = Readonly<RequiredProps>
 
+export const PolylinePropTypes = {
+  ...Path.propTypes,
+  smoothFactor: PropTypes.number,
+  noClip: PropTypes.bool
+}
+
 export default class Polyline<P extends L.PolylineOptions = L.PolylineOptions> extends Path<L.Polyline, Props & P> {
-  protected static propTypes = {
-    ...Path.propTypes,
-    points: PropTypes.oneOfType([PropTypes.arrayOf(Types.Point), PropTypes.arrayOf(PropTypes.arrayOf(Types.Point))]).isRequired,
-    smoothFactor: PropTypes.number,
-    noClip: PropTypes.bool
+  public static propTypes = {
+    ...PolylinePropTypes,
+    points: PropTypes.oneOfType([PropTypes.arrayOf(Types.Point), PropTypes.arrayOf(PropTypes.arrayOf(Types.Point))]).isRequired
   }
 
   protected createInstance (props: Props & P): L.Polyline {

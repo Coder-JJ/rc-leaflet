@@ -11,7 +11,7 @@ interface MouseEvents {
 export type Props = Readonly<Partial<MouseEvents>>
 
 export default abstract class Evented<T extends L.Evented, P, S> extends PureComponent<Props & P, S> {
-  protected static propTypes = {
+  public static propTypes = {
     onClick: PropTypes.func,
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func

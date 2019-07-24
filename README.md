@@ -1,4 +1,8 @@
-# React Components for Leaflet.js
+# React Components of Leaflet.js
+
+## History Versions
+
+- [RCMap Update Logs](https://github.com/Coder-JJ/rc-leaflet/blob/master/UPDATE.md)
 
 ## Docs
 
@@ -6,15 +10,21 @@
 
 - [Proj4Leaflet](https://www.npmjs.com/package/proj4leaflet)
 
+- [MarkerCluster](https://www.npmjs.com/package/leaflet.markercluster)
+
 ## Features
 
+- `TypeScript` support
+
+- `JSX` support for `Popup`, `Tooltip` and `DivIcon`
+
+- `MassPoints` support, about max 150k points. `(v1.1.0+)`
+
+- `ClusterPoints` support, about max 50k points. `(v1.1.0+)`
+
+- RCMap scope `Theme` support
+
 - Import on Demand (tree-shaking)
-
-- TypeScript support
-
-- RCMap scope Theme support
-
-- JSX support for Popup and Tooltip
 
 ## Components
 
@@ -25,6 +35,10 @@
 - [TileLayer](#TileLayer)
 
 - [Point](#Point)
+
+- [MassPoints](#MassPoints) `(v1.1.0+)`
+
+- [ClusterPoints](#ClusterPoints) `(v1.1.0+)`
 
 - [CircleMarker](#CircleMarker)
 
@@ -395,6 +409,88 @@ import { RCMap, Point } from 'rc-leaflet'
 - other props
 
   - see [Leaflet.js](#docs) docs
+
+### `MassPoints`
+
+#### `Usage`
+
+```jsx
+import { RCMap, MassPoints, Popup, Tooltip } from 'rc-leaflet'
+
+(
+  <RCMap>
+    <MassPoints points />
+
+    <MassPoints points>
+      <Popup>this is Popup.</Popup>
+      <Tooltip>this is Tooltip.</Tooltip>
+    </MassPoints>
+  </RCMap>
+)
+```
+
+#### `Props`
+
+- points
+
+  - type: Array<[Point](#Data-Structure)>
+
+  - required: `true`
+
+  - geographical points.
+
+- iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor
+
+  - required: `false`
+
+  - same as props of [Icon](#Icon)
+
+- other props
+
+  - required: `false`
+
+  - type: `L.ImageOverlayOptions`
+
+  - see [Leaflet.js](#docs) docs.
+
+### `ClusterPoints`
+
+#### `Usage`
+
+```jsx
+import { RCMap, ClusterPoints, Popup, Tooltip } from 'rc-leaflet'
+
+(
+  <RCMap>
+    <ClusterPoints points />
+
+    <DivIcon>
+      <ClusterPoints points>
+        <Popup>this is Popup.</Popup>
+        <Tooltip>this is Tooltip.</Tooltip>
+      </ClusterPoints>
+    </DivIcon>
+  </RCMap>
+)
+```
+
+#### `Props`
+
+- points
+
+  - type: Array<[Point](#Data-Structure)>
+
+  - required: `true`
+
+  - geographical points.
+
+- other props
+
+  - required: `false`
+
+  - type: `L.MarkerClusterGroupOptions`
+
+  - see [MarkerCluster](#docs) docs.
 
 ### `CircleMarker`
 
@@ -1072,4 +1168,4 @@ import { RCMap, Tooltip, Point, CircleMarker, Circle, Polyline } from 'rc-leafle
 
 ## What's next?
 
-- new Components: `DrawingTools`, `Routing`
+- new Components: `LayerGroup`, `FeatureGroup`, `DrawingTools`, `Routing`

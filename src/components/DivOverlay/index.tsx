@@ -16,7 +16,7 @@ interface PartialProps {
 type Props = Readonly<Partial<PartialProps>>
 
 export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extends L.PopupOptions | L.TooltipOptions> extends PureComponent<Props & P> {
-  protected static propTypes = {
+  public static propTypes = {
     offset: Types.Pixel,
     zoomAnimation: PropTypes.bool,
     className: PropTypes.string,

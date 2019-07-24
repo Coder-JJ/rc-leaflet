@@ -14,7 +14,7 @@ interface RequiredProps {
 export type Props = Readonly<RequiredProps>
 
 export default class CircleMarker<P extends CircleMarkerOptions = CircleMarkerOptions> extends Path<L.CircleMarker, Props & P> {
-  protected static propTypes = {
+  public static propTypes = {
     ...Path.propTypes,
     radius: PropTypes.number.isRequired,
     center: Types.Point.isRequired

@@ -4,7 +4,7 @@ import { Types } from '../../config'
 import DivOverlay from '../DivOverlay'
 
 export default class Popup extends DivOverlay<L.Popup, L.PopupOptions> {
-  protected static propTypes = {
+  public static propTypes = {
     ...DivOverlay.propTypes,
     maxWidth: PropTypes.number,
     minWidth: PropTypes.number,
@@ -20,7 +20,7 @@ export default class Popup extends DivOverlay<L.Popup, L.PopupOptions> {
     closeOnEscapeKey: PropTypes.bool
   }
 
-  protected static defaultProps: L.PopupOptions = {
+  public static defaultProps: L.PopupOptions = {
     pane: 'popupPane',
     closeOnClick: true,
     zoomAnimation: true

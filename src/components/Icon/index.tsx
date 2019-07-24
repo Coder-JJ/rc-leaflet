@@ -13,7 +13,7 @@ interface State {
 }
 
 export default class Icon extends BaseIcon<L.Icon, Props> {
-  protected static defaultProps: PartialProps
+  public static defaultProps: PartialProps
 
   public static getDerivedStateFromProps (nextProps: Props, prevState: State): State {
     const { layer, children, ...options } = nextProps
