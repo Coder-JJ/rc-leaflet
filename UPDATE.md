@@ -46,6 +46,17 @@
 
 - feature: `DivIcon` supports single jsx element.
 
+  ```js
+  let Content = (
+    <div>
+      <div>content row.</div>
+      <div>content row.</div>
+    </div>
+  )
+
+  <DivIcon content={Content}>
+  ```
+
 - fix: `Popup` and `Tooltip` can not display jsx when they are under point.
 
 ---
