@@ -115,13 +115,13 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
     return L.imageOverlay(document.createElement('canvas').toDataURL('image/png'), getBounds(map), options)
   }
 
-  private setCanvasSize = () => {
+  private setCanvasSize (): void {
     const size = this.context.map.getSize()
     this.canvas.width = 3 * size.x
     this.canvas.height = 3 * size.y
   }
 
-  private draw = (): void => {
+  private draw (): void {
     const { points } = this.props
     const size = this.context.map.getSize()
 
@@ -136,7 +136,7 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
 
   private getIcon = (): string => this.props.iconUrl || defaultOptions.iconUrl
 
-  private getIconSize = (): L.PointTuple => {
+  private getIconSize (): L.PointTuple {
     const { iconSize } = this.props
 
     if (iconSize) {
@@ -145,7 +145,7 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
     return [this.image.width, this.image.height]
   }
 
-  private getIconAnchor = (): L.PointTuple => {
+  private getIconAnchor (): L.PointTuple {
     const { iconAnchor } = this.props
 
     if (iconAnchor) {
@@ -157,7 +157,7 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
     return [0, 0]
   }
 
-  private getPopupAnchor = (): L.PointTuple => {
+  private getPopupAnchor (): L.PointTuple {
     const { popupAnchor } = this.props
 
     if (popupAnchor) {
@@ -170,7 +170,7 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
     return undefined
   }
 
-  private getTooltipAnchor = (): L.PointTuple => {
+  private getTooltipAnchor (): L.PointTuple {
     const { tooltipAnchor } = this.props
 
     if (tooltipAnchor) {
@@ -182,7 +182,7 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
     return undefined
   }
 
-  private forEach = (points: L.LatLngExpression[], callback: (position: L.LatLngExpression, box: Box) => boolean | void) => {
+  private forEach (points: L.LatLngExpression[], callback: (position: L.LatLngExpression, box: Box) => boolean | void): void {
     const map = this.context.map
     const size = map.getSize()
     const [width, height] = this.getIconSize()

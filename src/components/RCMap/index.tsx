@@ -112,6 +112,7 @@ export default class RCMap extends PureComponent<Props, State> {
     const map = L.map(this.ref.current, options)
     if (bounds) {
       if (center && flyToBounds) {
+        map.panTo(center)
         map.flyToBounds(bounds, boundsOptions)
       } else {
         map.fitBounds(bounds, boundsOptions)

@@ -1,3 +1,7 @@
+## v1.1.1
+
+- fix: `RCMap` `bounds` Bug
+
 ## v1.1.0
 
 - feature: new Component `MassPoints`.

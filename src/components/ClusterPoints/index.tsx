@@ -19,7 +19,7 @@ interface RequiredProps {
 interface PartialProps {
   icon: L.Icon | L.DivIcon
   clusterPane: string
-  chunkProgress: (processed?: number, total?: number, time?: number) => void
+  chunkProgress (processed?: number, total?: number, time?: number): void
 }
 
 type Props = Readonly<RequiredProps & Partial<PartialProps> & L.MarkerClusterGroupOptions>
@@ -91,7 +91,7 @@ export default class ClusterPoints extends Layer<L.MarkerClusterGroup, Props> {
     return {}
   }
 
-  private addPoints = (): void => {
+  private addPoints (): void {
     const { points, icon = defaultIcon } = this.props
 
     this.instance.addLayers(points.map(position => L.marker(position, { icon })))

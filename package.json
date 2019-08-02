@@ -1,14 +1,15 @@
 {
   "name": "rc-leaflet",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "React components of Leaflet",
   "keywords": [
     "leaflet",
-    "map",
     "react",
+    "typescript",
+    "ts",
+    "map",
     "react-component",
-    "component",
-    "components"
+    "component"
   ],
   "main": "lib/components/index.js",
   "module": "es/components/index.js",
@@ -42,7 +43,7 @@
   "dependencies": {
     "@types/airbnb-prop-types": "^2.13.1",
     "@types/classnames": "^2.2.8",
-    "@types/leaflet": "^1.4.4",
+    "@types/leaflet": "^1.5.0",
     "@types/leaflet.markercluster": "^1.4.0",
     "@types/proj4leaflet": "^1.0.5",
     "@types/prop-types": "^15.7.1",
