@@ -1,7 +1,6 @@
 import Path from '../Path'
 import PropTypes from 'prop-types'
 import { Types } from '../../config'
-import { Omit } from '../Util/Types'
 import L from 'leaflet'
 
 export type CircleMarkerOptions = Omit<L.CircleMarkerOptions, 'radius'>

@@ -37,10 +37,9 @@ export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extend
   protected constructor (props: Props & P) {
     super(props)
     const { layer, position, children, onOpen, onClose, ...options } = props
-    const overlay = this.createInstance(options as P)
 
-    overlay.on({ add: this.onOpen, remove: this.onClose })
-    this.instance = overlay
+    this.instance = this.createInstance(options as P)
+    this.instance.on({ add: this.onOpen, remove: this.onClose })
   }
 
   public componentDidMount (): void {

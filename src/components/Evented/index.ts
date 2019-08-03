@@ -1,11 +1,12 @@
 import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
+import { LeafletMouseEventHandlerFn } from '../Util/Types'
 
 interface MouseEvents {
-  onClick: L.LeafletEventHandlerFn
-  onMouseOver: L.LeafletEventHandlerFn
-  onMouseOut: L.LeafletEventHandlerFn
+  onClick: LeafletMouseEventHandlerFn
+  onMouseOver: LeafletMouseEventHandlerFn
+  onMouseOut: LeafletMouseEventHandlerFn
 }
 
 export type Props = Readonly<Partial<MouseEvents>>

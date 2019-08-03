@@ -2,6 +2,7 @@ import { Children, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
 import { Types } from '../../config'
+import { getBounds } from '../Util/Map'
 import { ContextType } from '../RCMap'
 import InteractiveLayer from '../InteractiveLayer'
 import { defaultOptions } from '../Icon/creator'
@@ -33,11 +34,6 @@ type State = Readonly<{
   clickPoint: L.LatLngExpression
   hoverPoint: L.LatLngExpression
 }>
-
-const getBounds = (map: L.Map): L.LatLngBounds => {
-  const size = map.getSize()
-  return L.latLngBounds(map.containerPointToLatLng([-size.x, 2 * size.y]), map.containerPointToLatLng([2 * size.x, -size.y]))
-}
 
 export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, State> {
   public static propTypes = {
@@ -79,12 +75,7 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
         resolve()
       }
     })
-    map.on('moveend', async () => {
-      await this.imageReady
-      this.setCanvasSize()
-      this.draw()
-      this.instance.setBounds(getBounds(map))
-    })
+    map.on('moveend', this.onMoveEnd)
     map.on('click', this.onClick)
     map.on('mousemove', this.onMouseMove)
   }
@@ -104,15 +95,18 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
   }
 
   public componentWillUnmount (): void {
-    this.context.map.off('mousemove', this.onMouseMove)
-    this.instance.remove()
+    const map = this.context.map
+    map.off('moveend', this.onMoveEnd)
+    map.off('click', this.onClick)
+    map.off('mousemove', this.onMouseMove)
+    super.componentWillUnmount()
   }
 
   protected createInstance (props: Props): L.ImageOverlay {
     const { points, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor, ...options } = props
     const map = this.context.map
 
-    return L.imageOverlay(document.createElement('canvas').toDataURL('image/png'), getBounds(map), options)
+    return L.imageOverlay(document.createElement('canvas').toDataURL('image/png'), getBounds(map, 3), options)
   }
 
   private setCanvasSize (): void {
@@ -204,6 +198,13 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
         break
       }
     }
+  }
+
+  private onMoveEnd = async (e: L.LeafletEvent): Promise<void> => {
+    await this.imageReady
+    this.setCanvasSize()
+    this.draw()
+    this.instance.setBounds(getBounds(this.context.map, 3))
   }
 
   private onClick = (e: L.LeafletMouseEvent): void => this.setState(({ clickPoint, hoverPoint }) => ({ clickPoint: clickPoint === hoverPoint ? undefined : hoverPoint }))

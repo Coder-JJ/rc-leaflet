@@ -1,3 +1,7 @@
+## v1.1.2
+
+- fix: unbind map events when `MassPoints` is unmounted.
+
 ## v1.1.1
 
 - fix: `RCMap` `bounds` Bug
