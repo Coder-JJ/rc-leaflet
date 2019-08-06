@@ -39,7 +39,6 @@
     "no-empty": [2, { "allowEmptyCatch": true }],
     "array-callback-return": 2,
     "block-scoped-var": 2,
-    "consistent-return": 2,
     "curly": 2,
     "dot-location": [2, "property"],
     "dot-notation": [2, { "allowKeywords": false }],

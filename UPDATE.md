@@ -1,3 +1,7 @@
+## v1.1.3
+
+- fix: handle the edge case when layer of `DivOverlay` is changed.
+
 ## v1.1.2
 
 - fix: unbind map events when `MassPoints` is unmounted.

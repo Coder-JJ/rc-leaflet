@@ -61,11 +61,19 @@ export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extend
     const { layer, position, onOpen, onClose, children, ...options } = this.props
     const overlay = this.instance
 
-    if (this.context.map && !prevLayer && prevPosition && !position) {
+    if (prevLayer) {
+      if (layer !== prevLayer) {
+        this.unbindOnLayer(prevLayer)
+      }
+    } else if (this.context.map && prevPosition && !position) {
       this.closeOnMap()
     }
     this.update(options as P)
-    if (!layer && position) {
+    if (layer) {
+      if (layer !== prevLayer) {
+        this.bindOnLayer(layer)
+      }
+    } else if (position) {
       overlay.setLatLng(position)
       if (this.context.map && !overlay.isOpen()) {
         this.openOnMap()
@@ -80,6 +88,8 @@ export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extend
   protected abstract createInstance (props: P): T
 
   protected abstract bindOnLayer (layer: L.Layer): void
+
+  protected abstract unbindOnLayer (layer: L.Layer): void
 
   protected abstract openOnMap (): void
 

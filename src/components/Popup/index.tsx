@@ -36,6 +36,12 @@ export default class Popup extends DivOverlay<L.Popup, L.PopupOptions> {
     }
   }
 
+  protected unbindOnLayer (layer: L.Layer): void {
+    if (layer) {
+      layer.unbindPopup()
+    }
+  }
+
   protected openOnMap (): void {
     if (this.context.map) {
       this.context.map.openPopup(this.instance)

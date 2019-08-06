@@ -8,7 +8,7 @@ export default class Tooltip extends DivOverlay<L.Tooltip, L.TooltipOptions> {
     ...DivOverlay.propTypes,
     pane: PropTypes.string,
     offset: Types.Pixel,
-    direction: PropTypes.oneOf<'right' | 'left' | 'top' | 'bottom' | 'center' | 'auto'>(['right', 'left', 'top', 'bottom', 'center', 'auto']),
+    direction: PropTypes.oneOf<L.Direction>(['right', 'left', 'top', 'bottom', 'center', 'auto']),
     permanent: PropTypes.bool,
     sticky: PropTypes.bool,
     interactive: PropTypes.bool,
@@ -26,6 +26,12 @@ export default class Tooltip extends DivOverlay<L.Tooltip, L.TooltipOptions> {
   protected bindOnLayer (layer: L.Layer): void {
     if (layer) {
       layer.bindTooltip(this.instance)
+    }
+  }
+
+  protected unbindOnLayer (layer: L.Layer): void {
+    if (layer) {
+      layer.unbindTooltip()
     }
   }
 

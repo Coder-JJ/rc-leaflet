@@ -9,14 +9,14 @@ export default abstract class Path<T extends L.Path, P extends L.PathOptions> ex
     color: PropTypes.string,
     weight: PropTypes.number,
     opacity: PropTypes.number,
-    lineCap: PropTypes.oneOf<'butt' | 'round' | 'square' | 'inherit'>(['butt', 'round', 'square', 'inherit']),
-    lineJoin: PropTypes.oneOf<'miter' | 'round' | 'bevel' | 'inherit'>(['miter', 'round', 'bevel', 'inherit']),
+    lineCap: PropTypes.oneOf<L.LineCapShape>(['butt', 'round', 'square', 'inherit']),
+    lineJoin: PropTypes.oneOf<L.LineJoinShape>(['miter', 'round', 'bevel', 'inherit']),
     dashArray: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.number)]),
     dashOffset: PropTypes.string,
     fill: PropTypes.bool,
     fillColor: PropTypes.string,
     fillOpacity: PropTypes.number,
-    fillRule: PropTypes.oneOf<'nonzero' | 'evenodd' | 'inherit'>(['nonzero', 'evenodd', 'inherit']),
+    fillRule: PropTypes.oneOf<L.FillRule>(['nonzero', 'evenodd', 'inherit']),
     renderer: PropTypes.instanceOf(L.Renderer),
     className: PropTypes.string
   }

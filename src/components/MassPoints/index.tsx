@@ -249,6 +249,7 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
           if (position) {
             return cloneElement<{ position: L.LatLngExpression, offset: L.PointExpression }>(child as React.ReactElement, { position, offset })
           }
+          return cloneElement<{ layer: L.ImageOverlay }>(child as React.ReactElement, { layer: this.instance })
         }
         return child
       })
