@@ -1,7 +1,7 @@
 import React, { Children, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import { Context, ContextType } from '../RCMap'
+import Context, { ContextType } from '../RCMap/Context'
 import Evented from '../Evented'
 
 interface PartialProps {

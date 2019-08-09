@@ -18,15 +18,7 @@ export default {
     dir: dist,
     format: 'umd',
     name: 'RCLeaflet',
-    exports: 'named',
-    globals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-      'prop-types': 'PropTypes',
-      'airbnb-prop-types': 'Airbnb',
-      classnames: 'classNames',
-      leaflet: 'L'
-    }
+    exports: 'named'
   },
   external: ['react', 'react-dom', 'prop-types', 'airbnb-prop-types', 'classnames', 'leaflet', 'proj4', 'proj4leaflet', 'leaflet.markercluster'],
   plugins: [

@@ -1,12 +1,13 @@
 import 'leaflet/dist/leaflet.css'
 import './index.css'
-import React, { PureComponent, createContext } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { ClassValue } from 'classnames/types'
 import L from 'leaflet'
-import { Types } from '../../config'
-import { Theme, ThemeContext, ThemeContextType } from '../Theme'
+import * as Types from '../Util/PropTypes'
+import ThemeContext, { ContextType as ThemeContextType } from '../Theme'
+import Context, { ContextType as State } from './Context'
 
 interface PartialProps {
   className: ClassValue
@@ -21,15 +22,6 @@ interface PartialProps {
 }
 
 type Props = Readonly<Partial<PartialProps> & L.MapOptions>
-
-type State = Readonly<{
-  map: L.Map
-  theme: Theme
-}>
-
-export const Context = createContext<State>(null)
-
-export type ContextType = React.ContextType<typeof Context>
 
 export default class RCMap extends PureComponent<Props, State> {
   public static propTypes = {

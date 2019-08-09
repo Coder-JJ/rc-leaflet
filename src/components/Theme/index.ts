@@ -1,16 +1,10 @@
-import React from 'react'
+import { createContext } from 'react'
 import L from 'leaflet'
 
-export interface Theme {
+export interface ContextType {
   path?: L.PathOptions
 }
 
-const ThemeContext = React.createContext<Theme>(null)
-const ThemeProvider = ThemeContext.Provider
+const Context = createContext<ContextType>(null)
 
-export type ThemeContextType = React.ContextType<typeof ThemeContext>
-
-export {
-  ThemeContext,
-  ThemeProvider
-}
+export default Context

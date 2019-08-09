@@ -1,8 +1,7 @@
 import React, { PureComponent, Children, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import { Types } from '../../config'
-import { defaultIcon } from '../DivIcon/creator'
+import * as Types from '../Util/PropTypes'
 
 interface PartialProps {
   layer: L.Marker
@@ -13,7 +12,8 @@ export type Props = Readonly<Partial<PartialProps>>
 
 export default abstract class BaseIcon<T extends L.Icon | L.DivIcon, P extends L.BaseIconOptions> extends PureComponent<Props & P, { instance: T }> {
   public static propTypes = {
-    ...Types.LayerOptionsShape,
+    pane: PropTypes.string,
+    attribution: PropTypes.string,
     iconUrl: PropTypes.string,
     iconRetinaUrl: PropTypes.string,
     iconSize: Types.Pixel,
@@ -29,26 +29,9 @@ export default abstract class BaseIcon<T extends L.Icon | L.DivIcon, P extends L
     children: PropTypes.node
   }
 
-  protected constructor (props: Props & P) {
-    super(props)
-    const { layer, children, ...options } = props
-
-    this.state = {
-      instance: this.createInstance(options as P)
-    }
+  public readonly state: { instance: T } = {
+    instance: undefined
   }
-
-  public componentWillUnmount (): void {
-    const { layer } = this.props
-
-    if (layer) {
-      setTimeout(() => {
-        layer.setIcon(defaultIcon)
-      }, 0)
-    }
-  }
-
-  protected abstract createInstance (options: P): T
 
   public render (): React.ReactNode {
     const { children } = this.props

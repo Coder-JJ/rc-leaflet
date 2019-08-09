@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import { Types } from '../../config'
+import * as Types from '../Util/PropTypes'
 import DivOverlay from '../DivOverlay'
 
 export default class Popup extends DivOverlay<L.Popup, L.PopupOptions> {

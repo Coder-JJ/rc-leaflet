@@ -78,11 +78,6 @@ const BoundsOptionsShape = {
 
 const BoundsOptions = PropTypes.shape(BoundsOptionsShape)
 
-const LayerOptionsShape = {
-  pane: PropTypes.string,
-  attribution: PropTypes.string
-}
-
 const GridLayerOptionsShape = {
   tileSize: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(L.Point)]),
   opacity: PropTypes.number,
@@ -125,6 +120,5 @@ export {
   Icon,
   Bounds,
   BoundsOptions,
-  LayerOptionsShape,
   TileLayerOptionsShape
 }

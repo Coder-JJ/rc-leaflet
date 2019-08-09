@@ -1,10 +1,12 @@
 import React from 'react'
-import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import { Types } from '../../config'
+import * as Types from '../Util/PropTypes'
+import { ContextType } from '../RCMap/Context'
+import Context, { ContextType as State } from './Context'
 import InteractiveLayer from '../InteractiveLayer'
-import { Consumer as DivIconConsumer } from '../DivIcon'
+import Content from './Content'
+import { keepPrevHTML } from '../DivIcon'
 import { defaultIcon } from '../DivIcon/creator'
 
 interface RequiredProps {
@@ -13,7 +15,7 @@ interface RequiredProps {
 
 type Props = Readonly<RequiredProps & L.MarkerOptions>
 
-export default class Point extends InteractiveLayer<L.Marker, Props> {
+export default class Point extends InteractiveLayer<L.Marker, Props, State> {
   public static propTypes = {
     ...InteractiveLayer.propTypes,
     position: Types.Point.isRequired,
@@ -31,6 +33,28 @@ export default class Point extends InteractiveLayer<L.Marker, Props> {
     autoPanPadding: Types.Pixel
   }
 
+  public static Content = Content
+
+  public constructor (props: Props, context: ContextType) {
+    super(props, context)
+    this.state = {
+      instance: this.instance,
+      icon: props.icon
+    }
+  }
+
+  public static getDerivedStateFromProps (nextProps: Props, prevState: State): Partial<State> | null {
+    const { icon: nextIcon } = nextProps
+    const { instance, icon } = prevState
+    if (nextIcon !== icon) {
+      if (nextIcon instanceof L.DivIcon) {
+        keepPrevHTML(instance as L.Marker, nextIcon)
+      }
+      return { icon: nextIcon }
+    }
+    return null
+  }
+
   protected createInstance (props: Props): L.Marker {
     const { position, icon = defaultIcon, ...options } = props
 
@@ -38,15 +62,12 @@ export default class Point extends InteractiveLayer<L.Marker, Props> {
   }
 
   public componentDidUpdate (prevProps: Props): void {
-    const { position: prevPosition, icon: prevIcon, zIndexOffset: prevZIndexOffset, opacity: prevOpacity } = prevProps
-    const { position, icon, zIndexOffset, opacity } = this.props
+    const { position: prevPosition, zIndexOffset: prevZIndexOffset, opacity: prevOpacity } = prevProps
+    const { position, zIndexOffset, opacity } = this.props
     const point = this.instance
 
     if (position !== prevPosition) {
       point.setLatLng(position)
-    }
-    if (icon !== prevIcon) {
-      point.setIcon(icon)
     }
     if (zIndexOffset !== prevZIndexOffset) {
       point.setZIndexOffset(zIndexOffset)
@@ -58,15 +79,10 @@ export default class Point extends InteractiveLayer<L.Marker, Props> {
   }
 
   public render (): React.ReactNode {
-    const { icon } = this.props
-
     return (
-      <>
+      <Context.Provider value={this.state}>
         { super.render() }
-        <DivIconConsumer>
-          { content => (icon instanceof L.DivIcon ? createPortal(content, this.instance.getElement()) : null) }
-        </DivIconConsumer>
-      </>
+      </Context.Provider>
     )
   }
 }

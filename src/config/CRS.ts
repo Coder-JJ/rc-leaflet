@@ -1,6 +1,5 @@
 import L from 'leaflet'
 import 'proj4leaflet'
-// import 'leaflet.chinatmsproviders'
 
 export default {
   BMap: new L.Proj.CRS(

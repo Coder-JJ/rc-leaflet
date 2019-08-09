@@ -1,11 +1,11 @@
 import { Children, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import { Types } from '../../config'
+import * as Types from '../Util/PropTypes'
 import { getBounds } from '../Util/Map'
-import { ContextType } from '../RCMap'
-import InteractiveLayer from '../InteractiveLayer'
+import { ContextType } from '../RCMap/Context'
 import { defaultOptions } from '../Icon/creator'
+import InteractiveLayer from '../InteractiveLayer'
 import Popup from '../Popup'
 import Tooltip from '../Tooltip'
 
@@ -92,6 +92,7 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
       await this.imageReady
       this.draw()
     }
+    super.bindEvents(prevProps)
   }
 
   public componentWillUnmount (): void {

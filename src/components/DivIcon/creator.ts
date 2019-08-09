@@ -19,5 +19,6 @@ const defaultIcon = creator(defaultOptions)
 export default creator
 
 export {
+  defaultOptions,
   defaultIcon
 }

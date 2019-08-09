@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import creator from './creator'
+import creator, { defaultIcon } from './creator'
 import BaseIcon, { Props as BaseIconProps } from '../BaseIcon'
 
 interface PartialProps {
@@ -26,7 +26,11 @@ export default class Icon extends BaseIcon<L.Icon, Props> {
     return { instance: icon }
   }
 
-  protected createInstance (options: L.IconOptions): L.Icon {
-    return creator(options)
+  public componentWillUnmount (): void {
+    const { layer } = this.props
+
+    if (layer) {
+      layer.setIcon(defaultIcon)
+    }
   }
 }

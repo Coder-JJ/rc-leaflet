@@ -1,23 +1,24 @@
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import React from 'react'
-import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
 import 'leaflet.markercluster'
-import { Types } from '../../config'
-import { ContextType } from '../RCMap'
+import * as Types from '../Util/PropTypes'
+import { ContextType } from '../RCMap/Context'
 import Layer from '../Layer'
+import PointContext from '../Point/Context'
 import { PolylinePropTypes } from '../Polyline'
-import { Consumer as DivIconConsumer } from '../DivIcon'
 import { defaultIcon } from '../DivIcon/creator'
+
+type Icon = L.Icon | L.DivIcon
 
 interface RequiredProps {
   points: L.LatLngExpression[]
 }
 
 interface PartialProps {
-  icon: L.Icon | L.DivIcon
+  icon: Icon
   clusterPane: string
   chunkProgress (processed?: number, total?: number, time?: number): void
 }
@@ -71,6 +72,7 @@ export default class ClusterPoints extends Layer<L.MarkerClusterGroup, Props> {
     if (points !== prevPoints || icon !== prevIcon) {
       this.instance.clearLayers()
       this.addPoints()
+      this.forceUpdate()
     }
   }
 
@@ -98,16 +100,12 @@ export default class ClusterPoints extends Layer<L.MarkerClusterGroup, Props> {
   }
 
   public render (): React.ReactNode {
-    const { icon } = this.props
-    const layers = this.instance.getLayers()
+    const { icon = defaultIcon } = this.props
 
     return (
-      <>
+      <PointContext.Provider value={{ instance: this.instance, icon }}>
         { super.render() }
-        <DivIconConsumer>
-          { content => (icon instanceof L.DivIcon ? layers.filter(layer => layer instanceof L.Marker && layer.getElement()).map((point: L.Marker) => createPortal(content, point.getElement())) : null) }
-        </DivIconConsumer>
-      </>
+      </PointContext.Provider>
     )
   }
 }

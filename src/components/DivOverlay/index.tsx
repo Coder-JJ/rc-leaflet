@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react'
 import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import { Types } from '../../config'
-import { Context, ContextType } from '../RCMap'
+import * as Types from '../Util/PropTypes'
+import Context, { ContextType } from '../RCMap/Context'
 
 interface PartialProps {
   layer: L.Layer

@@ -1,6 +1,6 @@
 import Path from '../Path'
 import PropTypes from 'prop-types'
-import { Types } from '../../config'
+import * as Types from '../Util/PropTypes'
 import L from 'leaflet'
 
 interface RequiredProps {

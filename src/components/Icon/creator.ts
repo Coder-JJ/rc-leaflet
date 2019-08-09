@@ -18,8 +18,11 @@ const creator = (options: L.IconOptions): L.Icon => {
   return L.icon(options)
 }
 
+const defaultIcon = creator(defaultOptions)
+
 export default creator
 
 export {
-  defaultOptions
+  defaultOptions,
+  defaultIcon
 }

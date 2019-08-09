@@ -1,3 +1,15 @@
+## v1.2.0
+
+- remove: remove `content` prop of `DivIcon`, there are too many edge cases to handle with.
+
+- feature: new Component `Point.Content`, used to replace `content` prop of `DivIcon`.
+
+- feature: new Components, export all abstract Components for plugin development.
+
+- feature: add `TileLayers.OpenStreetMap`, `TileLayers.GoogleMap` config.
+
+- feature: new Components `TileLayer.BMap`, `TileLayer.AMap`, `TileLayer.OpenStreetMap`, `TileLayer.GoogleMap`
+
 ## v1.1.3
 
 - fix: handle the edge case when layer of `DivOverlay` is changed.

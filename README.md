@@ -34,7 +34,17 @@
 
 - [TileLayer](#TileLayer)
 
+- [TileLayer.BMap](#TileLayer) `(v1.2.0+)`
+
+- [TileLayer.AMap](#TileLayer) `(v1.2.0+)`
+
+- [TileLayer.OpenStreetMap](#TileLayer) `(v1.2.0+)`
+
+- [TileLayer.GoogleMap](#TileLayer) `(v1.2.0+)`
+
 - [Point](#Point)
+
+- [Point.Content](#Point) `(v1.2.0+)`
 
 - [MassPoints](#MassPoints) `(v1.1.0+)`
 
@@ -195,7 +205,7 @@ import { RCMap } from 'rc-leaflet'
 
     const { TileLayers } = Config
 
-    console.log(TileLayers.BMap, TileLayers.AMap)
+    console.log(TileLayers.BMap, TileLayers.AMap, TileLayers.OpenStreetMap, TileLayers.GoogleMap)
     ```
 
 - minZoom
@@ -345,6 +355,22 @@ import { RCMap, TileLayer } from 'rc-leaflet'
   <RCMap>
     <TileLayer />
   </RCMap>
+
+  <RCMap>
+    <TileLayer.BMap />
+  </RCMap>
+
+  <RCMap>
+    <TileLayer.AMap />
+  </RCMap>
+
+  <RCMap>
+    <TileLayer.OpenStreetMap />
+  </RCMap>
+
+  <RCMap>
+    <TileLayer.GoogleMap />
+  </RCMap>
 )
 ```
 
@@ -372,6 +398,13 @@ import { RCMap, Point } from 'rc-leaflet'
 (
   <RCMap>
     <Point />
+
+    <Point>
+      <Point.Content className>
+        <div>first row.</div>
+        <div>second row.</div>
+      </Point.Content>
+    </Point>
   </RCMap>
 )
 ```
@@ -811,12 +844,16 @@ import { RCMap, DivIcon, Point } from 'rc-leaflet'
 
 (
   <RCMap>
-    <DivIcon content={<div>must be single jsx element content.</div>}>
-      <Point />
+    <DivIcon>
+      <Point>
+        <Point.Content />
+      </Point>
     </DivIcon>
 
     <Point>
-      <DivIcon content={<div>must be single jsx element content.</div>} />
+      <DivIcon>
+        <Point.Content />
+      </DivIcon>
     </Point>
   </RCMap>
 )
@@ -833,16 +870,6 @@ import { RCMap, DivIcon, Point } from 'rc-leaflet'
   - required: false
 
   - the className of DivIcon container.
-
-- content
-
-  - type: `React.ReactElement`
-
-  - default: `null`
-
-  - required: `false`
-
-  - custom `JSX` code to put inside the div element, empty by default. Alternatively, an instance of `React.ReactElement`.
 
 - bgPos
 
