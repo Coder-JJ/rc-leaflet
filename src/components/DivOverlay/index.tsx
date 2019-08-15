@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import * as Types from '../Util/PropTypes'
+import { Pixel, Point } from '../../util/PropTypes'
 import Context, { ContextType } from '../RCMap/Context'
 
 interface PartialProps {
@@ -17,12 +17,12 @@ type Props = Readonly<Partial<PartialProps>>
 
 export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extends L.PopupOptions | L.TooltipOptions> extends PureComponent<Props & P> {
   public static propTypes = {
-    offset: Types.Pixel,
+    offset: Pixel,
     zoomAnimation: PropTypes.bool,
     className: PropTypes.string,
     pane: PropTypes.string,
     layer: PropTypes.instanceOf(L.Layer),
-    position: Types.Point,
+    position: Point,
     children: PropTypes.node,
     onOpen: PropTypes.func,
     onClose: PropTypes.func

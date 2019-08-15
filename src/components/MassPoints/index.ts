@@ -1,8 +1,8 @@
 import { Children, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import * as Types from '../Util/PropTypes'
-import { getBounds } from '../Util/Map'
+import { Pixel, Point } from '../../util/PropTypes'
+import { getBounds } from '../../util/Map'
 import { ContextType } from '../RCMap/Context'
 import { defaultOptions } from '../Icon/creator'
 import InteractiveLayer from '../InteractiveLayer'
@@ -38,12 +38,12 @@ type State = Readonly<{
 export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, State> {
   public static propTypes = {
     ...InteractiveLayer.propTypes,
-    points: PropTypes.arrayOf(Types.Point).isRequired,
+    points: PropTypes.arrayOf(Point).isRequired,
     iconUrl: PropTypes.string,
-    iconSize: Types.Pixel,
-    iconAnchor: Types.Pixel,
-    popupAnchor: Types.Pixel,
-    tooltipAnchor: Types.Pixel
+    iconSize: Pixel,
+    iconAnchor: Pixel,
+    popupAnchor: Pixel,
+    tooltipAnchor: Pixel
   }
 
   private canvas: HTMLCanvasElement

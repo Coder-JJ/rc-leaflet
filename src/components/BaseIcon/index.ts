@@ -1,7 +1,7 @@
 import React, { PureComponent, Children, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import * as Types from '../Util/PropTypes'
+import { Pixel } from '../../util/PropTypes'
 
 interface PartialProps {
   layer: L.Marker
@@ -16,14 +16,14 @@ export default abstract class BaseIcon<T extends L.Icon | L.DivIcon, P extends L
     attribution: PropTypes.string,
     iconUrl: PropTypes.string,
     iconRetinaUrl: PropTypes.string,
-    iconSize: Types.Pixel,
-    iconAnchor: Types.Pixel,
-    popupAnchor: Types.Pixel,
-    tooltipAnchor: Types.Pixel,
+    iconSize: Pixel,
+    iconAnchor: Pixel,
+    popupAnchor: Pixel,
+    tooltipAnchor: Pixel,
     shadowUrl: PropTypes.string,
     shadowRetinaUrl: PropTypes.string,
-    shadowSize: Types.Pixel,
-    shadowAnchor: Types.Pixel,
+    shadowSize: Pixel,
+    shadowAnchor: Pixel,
     className: PropTypes.string,
     layer: PropTypes.instanceOf(L.Marker),
     children: PropTypes.node

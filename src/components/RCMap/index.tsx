@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { ClassValue } from 'classnames/types'
 import L from 'leaflet'
-import * as Types from '../Util/PropTypes'
+import { ClassValue as ClassValueType, CRS, Point, Zoom, Bounds, BoundsOptions } from '../../util/PropTypes'
 import ThemeContext, { ContextType as ThemeContextType } from '../Theme'
 import Context, { ContextType as State } from './Context'
 
@@ -25,7 +25,7 @@ type Props = Readonly<Partial<PartialProps> & L.MapOptions>
 
 export default class RCMap extends PureComponent<Props, State> {
   public static propTypes = {
-    className: Types.ClassValue,
+    className: ClassValueType,
     preferCanvas: PropTypes.bool,
     attributionControl: PropTypes.bool,
     zoomControl: PropTypes.bool,
@@ -34,15 +34,15 @@ export default class RCMap extends PureComponent<Props, State> {
     zoomDelta: PropTypes.number,
     trackResize: PropTypes.bool,
     boxZoom: PropTypes.bool,
-    doubleClickZoom: Types.Zoom,
+    doubleClickZoom: Zoom,
     dragging: PropTypes.bool,
-    crs: Types.CRS,
-    center: Types.Point,
+    crs: CRS,
+    center: Point,
     zoom: PropTypes.number,
     minZoom: PropTypes.number,
     maxZoom: PropTypes.number,
     layers: PropTypes.arrayOf(PropTypes.instanceOf(L.Layer)),
-    maxBounds: Types.Bounds,
+    maxBounds: Bounds,
     renderer: PropTypes.instanceOf(L.Renderer),
     zoomAnimation: PropTypes.bool,
     zoomAnimationThreshold: PropTypes.number,
@@ -57,16 +57,16 @@ export default class RCMap extends PureComponent<Props, State> {
     maxBoundsViscosity: PropTypes.number,
     keyboard: PropTypes.bool,
     keyboardPanDelta: PropTypes.number,
-    scrollWheelZoom: Types.Zoom,
+    scrollWheelZoom: Zoom,
     wheelDebounceTime: PropTypes.number,
     wheelPxPerZoomLevel: PropTypes.number,
     tap: PropTypes.bool,
     tapTolerance: PropTypes.number,
-    touchZoom: Types.Zoom,
+    touchZoom: Zoom,
     bounceAtZoomLimits: PropTypes.bool,
     flyToBounds: PropTypes.bool,
-    bounds: Types.Bounds,
-    boundsOptions: Types.BoundsOptions,
+    bounds: Bounds,
+    boundsOptions: BoundsOptions,
     children: PropTypes.node,
     onZoom: PropTypes.func,
     onZoomStart: PropTypes.func,

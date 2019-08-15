@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import * as Types from '../Util/PropTypes'
+import { Point } from '../../util/PropTypes'
 import Path from '../Path'
 
 export type CircleMarkerOptions = Omit<L.CircleMarkerOptions, 'radius'>
@@ -16,7 +16,7 @@ export default class CircleMarker<P extends CircleMarkerOptions = CircleMarkerOp
   public static propTypes = {
     ...Path.propTypes,
     radius: PropTypes.number.isRequired,
-    center: Types.Point.isRequired
+    center: Point.isRequired
   }
 
   protected createInstance (props: Props & P): L.CircleMarker {

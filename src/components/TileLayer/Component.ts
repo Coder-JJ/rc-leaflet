@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import * as Types from '../Util/PropTypes'
+import { TileLayerOptionsShape } from '../../util/PropTypes'
 import Context, { ContextType } from '../RCMap/Context'
 
 interface RequiredProps {
@@ -12,7 +12,7 @@ export type Props = Readonly<RequiredProps & L.TileLayerOptions>
 
 export default class TileLayer extends Component<Props> {
   public static propTypes = {
-    ...Types.TileLayerOptionsShape,
+    ...TileLayerOptionsShape,
     url: PropTypes.string.isRequired
   }
 

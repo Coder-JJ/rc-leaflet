@@ -4,7 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
 import 'leaflet.markercluster'
-import * as Types from '../Util/PropTypes'
+import { Icon, Point } from '../../util/PropTypes'
 import { ContextType } from '../RCMap/Context'
 import Layer from '../Layer'
 import PointContext from '../Point/Context'
@@ -28,8 +28,8 @@ type Props = Readonly<RequiredProps & Partial<PartialProps> & L.MarkerClusterGro
 export default class ClusterPoints extends Layer<L.MarkerClusterGroup, Props> {
   public static propTypes = {
     ...Layer.propTypes,
-    points: PropTypes.arrayOf(Types.Point).isRequired,
-    icon: Types.Icon,
+    points: PropTypes.arrayOf(Point).isRequired,
+    icon: Icon,
     clusterPane: PropTypes.string,
     chunkProgress: PropTypes.func,
     showCoverageOnHover: PropTypes.bool,

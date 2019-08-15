@@ -1,7 +1,7 @@
 import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import { LeafletMouseEventHandlerFn } from '../Util/Types'
+import { LeafletMouseEventHandlerFn } from '../../util/Types'
 
 interface MouseEvents {
   onClick: LeafletMouseEventHandlerFn

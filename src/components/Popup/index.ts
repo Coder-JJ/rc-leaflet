@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import * as Types from '../Util/PropTypes'
+import { Pixel } from '../../util/PropTypes'
 import DivOverlay from '../DivOverlay'
 
 export default class Popup extends DivOverlay<L.Popup, L.PopupOptions> {
@@ -12,9 +12,9 @@ export default class Popup extends DivOverlay<L.Popup, L.PopupOptions> {
     keepInView: PropTypes.bool,
     closeButton: PropTypes.bool,
     autoPan: PropTypes.bool,
-    autoPanPaddingTopLeft: Types.Pixel,
-    autoPanPaddingBottomRight: Types.Pixel,
-    autoPanPadding: Types.Pixel,
+    autoPanPaddingTopLeft: Pixel,
+    autoPanPaddingBottomRight: Pixel,
+    autoPanPadding: Pixel,
     autoClose: PropTypes.bool,
     closeOnClick: PropTypes.bool,
     closeOnEscapeKey: PropTypes.bool

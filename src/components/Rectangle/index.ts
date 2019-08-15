@@ -1,6 +1,6 @@
 import Path from '../Path'
 import PropTypes from 'prop-types'
-import * as Types from '../Util/PropTypes'
+import { PointBounds } from '../../util/PropTypes'
 import L from 'leaflet'
 
 interface RequiredProps {
@@ -12,7 +12,7 @@ type Props = Readonly<RequiredProps>
 export default class Rectangle<P extends L.PolylineOptions = L.PolylineOptions> extends Path<L.Rectangle, Props & P> {
   public static propTypes = {
     ...Path.propTypes,
-    bounds: Types.PointBounds.isRequired,
+    bounds: PointBounds.isRequired,
     smoothFactor: PropTypes.number,
     noClip: PropTypes.bool
   }

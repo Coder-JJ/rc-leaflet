@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import * as Types from '../Util/PropTypes'
+import { Point } from '../../util/PropTypes'
 import Path from '../Path'
 
 interface RequiredProps {
@@ -18,7 +18,7 @@ export const PolylinePropTypes = {
 export default class Polyline<P extends L.PolylineOptions = L.PolylineOptions> extends Path<L.Polyline, Props & P> {
   public static propTypes = {
     ...PolylinePropTypes,
-    points: PropTypes.oneOfType([PropTypes.arrayOf(Types.Point), PropTypes.arrayOf(PropTypes.arrayOf(Types.Point))]).isRequired
+    points: PropTypes.oneOfType([PropTypes.arrayOf(Point), PropTypes.arrayOf(PropTypes.arrayOf(Point))]).isRequired
   }
 
   protected createInstance (props: Props & P): L.Polyline {

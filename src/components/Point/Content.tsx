@@ -11,6 +11,15 @@ interface PartialProps {
 
 type Props = Readonly<Partial<PartialProps>>
 
+const isTargetPoint = (layer: L.Layer): layer is L.Marker => {
+  if (!layer) {
+    return false
+  }
+  const point = layer as L.Marker
+  const icon = point.getIcon && point.getIcon()
+  return icon && icon instanceof L.DivIcon
+}
+
 export default class Content extends PureComponent<Props> {
   public static propTypes = {
     children: PropTypes.node
@@ -25,10 +34,10 @@ export default class Content extends PureComponent<Props> {
     const layer = this.context && this.context.instance
 
     if (layer) {
-      if (layer instanceof L.Marker && layer.getIcon() instanceof L.DivIcon && layer.getElement()) {
+      if (isTargetPoint(layer)) {
         return createPortal(<div className={className} {...props}>{ children }</div>, layer.getElement())
       } else if (layer instanceof L.LayerGroup) {
-        const points = layer.getLayers().filter(el => el instanceof L.Marker && el.getIcon() instanceof L.DivIcon && el.getElement()) as L.Marker[]
+        const points = layer.getLayers().filter<L.Marker>(isTargetPoint)
         return points.map(point => createPortal(<div className={className} {...props}>{ children }</div>, point.getElement()))
       }
     }

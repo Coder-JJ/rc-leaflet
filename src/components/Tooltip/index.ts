@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import * as Types from '../Util/PropTypes'
+import { Pixel } from '../../util/PropTypes'
 import DivOverlay from '../DivOverlay'
 
 export default class Tooltip extends DivOverlay<L.Tooltip, L.TooltipOptions> {
   public static propTypes = {
     ...DivOverlay.propTypes,
     pane: PropTypes.string,
-    offset: Types.Pixel,
+    offset: Pixel,
     direction: PropTypes.oneOf<L.Direction>(['right', 'left', 'top', 'bottom', 'center', 'auto']),
     permanent: PropTypes.bool,
     sticky: PropTypes.bool,

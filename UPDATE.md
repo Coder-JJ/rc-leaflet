@@ -4,11 +4,45 @@
 
 - feature: new Component `Point.Content`, used to replace `content` prop of `DivIcon`.
 
+  ```jsx
+  <Point>
+    <Point.Content />
+  </Point>
+
+  <Point>
+    <DivIcon>
+      <Point.Content />
+    </DivIcon>
+  </Point>
+
+  <DivIcon>
+    <Point>
+      <Point.Content />
+    </Point>
+  </DivIcon>
+
+  <ClusterPoints>
+    <Point.Content />
+  </ClusterPoints>
+
+  <DivIcon>
+    <ClusterPoints>
+      <Point.Content />
+    </ClusterPoints>
+  </DivIcon>
+  ```
+
 - feature: new Components, export all abstract Components for plugin development.
 
 - feature: add `TileLayers.OpenStreetMap`, `TileLayers.GoogleMap` config.
 
 - feature: new Components `TileLayer.BMap`, `TileLayer.AMap`, `TileLayer.OpenStreetMap`, `TileLayer.GoogleMap`
+
+  ```jsx
+  <RCMap crs>
+    <TileLayer.GoogleMap />
+  </RCMap>
+  ```
 
 ## v1.1.3
 
@@ -26,7 +60,7 @@
 
 - feature: new Component `MassPoints`.
 
-  ```js
+  ```jsx
   <MassPoints points />
 
   <MassPoints points iconUrl />
@@ -39,7 +73,7 @@
 
 - feature: new Component `ClusterPoints`.
 
-  ```js
+  ```jsx
   <ClusterPoints points />
 
   <DivIcon>
@@ -70,7 +104,7 @@
 
 - feature: `DivIcon` supports single jsx element.
 
-  ```js
+  ```jsx
   let Content = (
     <div>
       <div>content row.</div>

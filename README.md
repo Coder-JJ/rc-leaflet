@@ -74,8 +74,6 @@
 
 - TileLayers
 
-- Types
-
 ## Data Structure
 
 - ThemeProps: `{ path?: L.PathOptions }` (see [Leaflet.js](#docs) docs)
@@ -491,7 +489,7 @@ import { RCMap, MassPoints, Popup, Tooltip } from 'rc-leaflet'
 #### `Usage`
 
 ```jsx
-import { RCMap, ClusterPoints, Popup, Tooltip } from 'rc-leaflet'
+import { RCMap, Point, ClusterPoints, Popup, Tooltip } from 'rc-leaflet'
 
 (
   <RCMap>
@@ -499,6 +497,7 @@ import { RCMap, ClusterPoints, Popup, Tooltip } from 'rc-leaflet'
 
     <DivIcon>
       <ClusterPoints points>
+        <Point.Content />
         <Popup>this is Popup.</Popup>
         <Tooltip>this is Tooltip.</Tooltip>
       </ClusterPoints>
@@ -840,7 +839,7 @@ import { RCMap, Icon, Point } from 'rc-leaflet'
 #### `Usage`
 
 ```jsx
-import { RCMap, DivIcon, Point } from 'rc-leaflet'
+import { RCMap, Point, DivIcon, Point } from 'rc-leaflet'
 
 (
   <RCMap>
