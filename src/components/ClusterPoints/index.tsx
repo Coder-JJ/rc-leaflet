@@ -76,10 +76,6 @@ export default class ClusterPoints extends Layer<L.MarkerClusterGroup, Props> {
     }
   }
 
-  public componentWillUnmount (): void {
-    this.instance.remove()
-  }
-
   protected createInstance (props: Props): L.MarkerClusterGroup {
     const { points, icon, ...options } = props
 

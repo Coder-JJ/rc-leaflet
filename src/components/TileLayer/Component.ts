@@ -27,9 +27,7 @@ export default class TileLayer extends Component<Props> {
     const { url, ...options } = props
 
     this.instance = L.tileLayer(url, options)
-    if (context.map) {
-      context.map.addLayer(this.instance)
-    }
+    context.map.addLayer(this.instance)
   }
 
   public shouldComponentUpdate (nextProps: Props): boolean {

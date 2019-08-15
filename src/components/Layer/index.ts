@@ -5,6 +5,10 @@ import Context, { ContextType } from '../RCMap/Context'
 import Evented from '../Evented'
 
 interface PartialProps {
+  onCreate (layer: L.Layer): void
+  onAdd (e: L.LeafletEvent, layer: L.Layer): void
+  onBeforeRemove (layer: L.Layer): void
+  onRemove (e: L.LeafletEvent, layer: L.Layer): void
   children: React.ReactNode
 }
 
@@ -15,6 +19,10 @@ export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions,
     ...Evented.propTypes,
     pane: PropTypes.string,
     attribution: PropTypes.string,
+    onCreate: PropTypes.func,
+    onAdd: PropTypes.func,
+    onBeforeRemove: PropTypes.func,
+    onRemove: PropTypes.func,
     children: PropTypes.node
   }
 
@@ -24,15 +32,16 @@ export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions,
 
   protected constructor (props: Props & P, context: ContextType) {
     super(props, context)
-    const { children, ...restProps } = props
+    const { onCreate, onAdd, onRemove, children, ...restProps } = props
 
     this.instance = this.createInstance({ ...this.getTheme(), ...restProps } as P)
-    if (context.map) {
-      this.instance.addTo(context.map)
-    }
+    onCreate && onCreate(this.instance)
+    this.instance.on({ add: this.onAdd, remove: this.onRemove })
+    this.instance.addTo(context.map)
   }
 
   public componentWillUnmount (): void {
+    this.props.onBeforeRemove && this.props.onBeforeRemove(this.instance)
     this.instance.remove()
   }
 
@@ -41,6 +50,10 @@ export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions,
   protected getTheme (): object {
     return {}
   }
+
+  private onAdd = (e: L.LeafletEvent) => this.props.onAdd && this.props.onAdd(e, this.instance)
+
+  private onRemove = (e: L.LeafletEvent) => this.props.onRemove && this.props.onRemove(e, this.instance)
 
   public render (): React.ReactNode {
     const { children } = this.props
