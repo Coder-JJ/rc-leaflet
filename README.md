@@ -427,7 +427,7 @@ import { RCMap, Point } from 'rc-leaflet'
 
   - by default, marker images zIndex is set automatically based on its latitude. Use this option if you want to put the marker on top of all others (or below), specifying a high value like 1000 (or high negative value, respectively).
 
-- onClick, onMouseOver, onMouseOut
+- onClick, onMouseOver, onMouseOut, onCreate, onAdd, onBeforeRemove, onRemove
 
   - type: `Function`
 
@@ -576,7 +576,7 @@ import { RCMap, CircleMarker } from 'rc-leaflet'
 
   - stroke width in pixels.
 
-- onClick, onMouseOver, onMouseOut
+- onClick, onMouseOver, onMouseOut, onCreate, onAdd, onBeforeRemove, onRemove
 
   - type: `Function`
 
@@ -660,7 +660,7 @@ import { RCMap, Polyline } from 'rc-leaflet'
 
   - stroke width in pixels.
 
-- onClick, onMouseOver, onMouseOut
+- onClick, onMouseOver, onMouseOut, onCreate, onAdd, onBeforeRemove, onRemove
 
   - type: `Function`
 

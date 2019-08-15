@@ -1,3 +1,9 @@
+## v1.2.1
+
+- fix: Point.Content Bug fix.
+
+- feature: feature: add onCreate, onAdd, onBeforeRemove, onRemove lifecycle hooks to components extends Layer, for plugin development.
+
 ## v1.2.0
 
 - remove: remove `content` prop of `DivIcon`, there are too many edge cases to handle with.
