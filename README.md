@@ -2,7 +2,7 @@
 
 ## History Versions
 
-- [RCMap Change Logs](https://github.com/Coder-JJ/rc-leaflet/blob/master/UPDATE.md)
+- [rc-leaflet Change Logs](https://github.com/Coder-JJ/rc-leaflet/blob/master/UPDATE.md)
 
 ## Docs
 
@@ -14,63 +14,77 @@
 
 ## Features
 
-- `TypeScript` support
+- [x] `TypeScript` support
 
-- `JSX` support for `Popup`, `Tooltip` and `DivIcon`
+- [x] `JSX` support for `Popup`, `Tooltip` and `DivIcon`
 
-- `MassPoints` support, about max 150k points. `(v1.1.0+)`
+- [x] `MassPoints` support, about max 150k points. `(v1.1.0+)`
 
-- `ClusterPoints` support, about max 50k points. `(v1.1.0+)`
+- [x] `ClusterPoints` support, about max 50k points. `(v1.1.0+)`
 
-- RCMap scope `Theme` support
+- [x] RCMap scope `Theme` support
 
-- Import on Demand (tree-shaking)
+- [x] Import on Demand (tree-shaking)
 
 ## Components
 
-- [RCMap](#RCMap)
+- [x] [RCMap](#RCMap)
 
-- [Theme](#Theme)
+- [x] [Theme](#Theme)
 
-- [TileLayer](#TileLayer)
+- [x] [TileLayer](#TileLayer)
 
-- [TileLayer.BMap](#TileLayer) `(v1.2.0+)`
+- [x] [TileLayer.BMap](#TileLayer) `(v1.2.0+)`
 
-- [TileLayer.AMap](#TileLayer) `(v1.2.0+)`
+- [x] [TileLayer.AMap](#TileLayer) `(v1.2.0+)`
 
-- [TileLayer.OpenStreetMap](#TileLayer) `(v1.2.0+)`
+- [x] [TileLayer.OpenStreetMap](#TileLayer) `(v1.2.0+)`
 
-- [TileLayer.GoogleMap](#TileLayer) `(v1.2.0+)`
+- [x] [TileLayer.GoogleMap](#TileLayer) `(v1.2.0+)`
 
-- [Point](#Point)
+- [ ] LayerGroup
 
-- [Point.Content](#Point) `(v1.2.0+)`
+- [ ] FeatureGroup
 
-- [MassPoints](#MassPoints) `(v1.1.0+)`
+- [x] [Point](#Point)
 
-- [ClusterPoints](#ClusterPoints) `(v1.1.0+)`
+- [x] [Point.Content](#Point) `(v1.2.0+)`
 
-- [CircleMarker](#CircleMarker)
+- [x] [MassPoints](#MassPoints) `(v1.1.0+)`
 
-- [Circle](#Circle)
+- [x] [ClusterPoints](#ClusterPoints) `(v1.1.0+)`
 
-- [Polyline](#Polyline)
+- [x] [CircleMarker](#CircleMarker)
 
-- [Polygon](#Polygon)
+- [x] [Circle](#Circle)
 
-- [Rectangle](#Rectangle)
+- [x] [Polyline](#Polyline)
 
-- [Icon](#Icon)
+- [x] [Polygon](#Polygon)
 
-- [DivIcon](#DivIcon)
+- [x] [Rectangle](#Rectangle)
 
-- [Popup](#Popup)
+- [x] [Icon](#Icon)
 
-- [Tooltip](#Tooltip)
+- [x] [DivIcon](#DivIcon)
+
+- [ ] ImageOverlay
+
+- [ ] SvgOverlay
+
+- [x] [Popup](#Popup)
+
+- [x] [Tooltip](#Tooltip)
 
 ## Plugins
 
-- [rc-leaflet-drawing](https://github.com/Coder-JJ/rc-leaflet-drawing)
+- [x] [rc-leaflet-drawing](https://github.com/Coder-JJ/rc-leaflet-drawing)
+
+- [ ] rc-leaflet-cluster-point
+
+- [ ] rc-leaflet-heatmap
+
+- [ ] rc-leaflet-routing
 
 ## Configuration
 
@@ -1195,7 +1209,3 @@ import { RCMap, Tooltip, Point, CircleMarker, Circle, Polyline } from 'rc-leafle
   - required: `false`
 
   - fired when the tooltip is closed.
-
-## What's next?
-
-- new Components: `LayerGroup`, `FeatureGroup`, `DrawingTools`, `Routing`
