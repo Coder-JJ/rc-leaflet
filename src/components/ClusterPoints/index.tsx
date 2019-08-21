@@ -74,6 +74,7 @@ export default class ClusterPoints extends Layer<L.MarkerClusterGroup, Props> {
       this.addPoints()
       this.forceUpdate()
     }
+    super.componentDidUpdate(prevProps)
   }
 
   protected createInstance (props: Props): L.MarkerClusterGroup {

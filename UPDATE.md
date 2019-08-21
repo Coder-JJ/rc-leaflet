@@ -1,8 +1,14 @@
+## v1.2.2
+
+- fix: `MassPoints` createInstance this `Bug`.
+
+- feature: add onUpdate lifecycle hook to components extends Layer, for plugin development.
+
 ## v1.2.1
 
 - fix: Point.Content Bug fix.
 
-- feature: feature: add onCreate, onAdd, onBeforeRemove, onRemove lifecycle hooks to components extends Layer, for plugin development.
+- feature: add onCreate, onAdd, onBeforeRemove, onRemove lifecycle hooks to components extends Layer, for plugin development.
 
 ## v1.2.0
 

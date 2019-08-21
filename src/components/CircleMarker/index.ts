@@ -36,7 +36,6 @@ export default class CircleMarker<P extends CircleMarkerOptions = CircleMarkerOp
     if (radius && radius !== prevRadius) {
       circle.setRadius(radius)
     }
-    super.bindEvents(prevProps)
-    super.setStyle()
+    super.componentDidUpdate(prevProps)
   }
 }

@@ -24,6 +24,10 @@ export default abstract class Evented<T extends L.Evented, P, S> extends PureCom
     this.bindEvents()
   }
 
+  public componentDidUpdate (prevProps: Props & P): void {
+    this.bindEvents(prevProps)
+  }
+
   protected bindEvents (prevProps?: Props & P): void {
     for (const key of Object.keys(Evented.propTypes)) {
       const prevHandler = (prevProps && prevProps[key]) || null

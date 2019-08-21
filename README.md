@@ -1,16 +1,16 @@
-# React Components of Leaflet.js
+# React Map Components of Leaflet.js
 
 ## History Versions
 
-- [RCMap Update Logs](https://github.com/Coder-JJ/rc-leaflet/blob/master/UPDATE.md)
+- [RCMap Change Logs](https://github.com/Coder-JJ/rc-leaflet/blob/master/UPDATE.md)
 
 ## Docs
 
 - [Leaflet.js](https://leafletjs.com/)
 
-- [Proj4Leaflet](https://www.npmjs.com/package/proj4leaflet)
+- [Proj4Leaflet](https://github.com/kartena/Proj4Leaflet)
 
-- [MarkerCluster](https://www.npmjs.com/package/leaflet.markercluster)
+- [MarkerCluster](https://github.com/Leaflet/Leaflet.markercluster)
 
 ## Features
 
@@ -67,6 +67,10 @@
 - [Popup](#Popup)
 
 - [Tooltip](#Tooltip)
+
+## Plugins
+
+- [rc-leaflet-drawing](https://github.com/Coder-JJ/rc-leaflet-drawing)
 
 ## Configuration
 
@@ -427,7 +431,7 @@ import { RCMap, Point } from 'rc-leaflet'
 
   - by default, marker images zIndex is set automatically based on its latitude. Use this option if you want to put the marker on top of all others (or below), specifying a high value like 1000 (or high negative value, respectively).
 
-- onClick, onMouseOver, onMouseOut, onCreate, onAdd, onBeforeRemove, onRemove
+- onClick, onMouseOver, onMouseOut, onCreate, onAdd, onUpdate, onBeforeRemove, onRemove
 
   - type: `Function`
 
@@ -576,7 +580,7 @@ import { RCMap, CircleMarker } from 'rc-leaflet'
 
   - stroke width in pixels.
 
-- onClick, onMouseOver, onMouseOut, onCreate, onAdd, onBeforeRemove, onRemove
+- onClick, onMouseOver, onMouseOut, onCreate, onAdd, onUpdate, onBeforeRemove, onRemove
 
   - type: `Function`
 
@@ -660,7 +664,7 @@ import { RCMap, Polyline } from 'rc-leaflet'
 
   - stroke width in pixels.
 
-- onClick, onMouseOver, onMouseOut, onCreate, onAdd, onBeforeRemove, onRemove
+- onClick, onMouseOver, onMouseOut, onCreate, onAdd, onUpdate, onBeforeRemove, onRemove
 
   - type: `Function`
 

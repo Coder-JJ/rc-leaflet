@@ -31,7 +31,6 @@ export default class Polygon<P extends L.PolylineOptions = L.PolylineOptions> ex
     if (points !== prevPoints) {
       polygon.setLatLngs(points)
     }
-    super.bindEvents(prevProps)
-    super.setStyle()
+    super.componentDidUpdate(prevProps)
   }
 }

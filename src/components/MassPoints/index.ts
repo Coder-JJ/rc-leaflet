@@ -92,7 +92,7 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
       await this.imageReady
       this.draw()
     }
-    super.bindEvents(prevProps)
+    super.componentDidUpdate(prevProps)
   }
 
   public componentWillUnmount (): void {
@@ -103,11 +103,10 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
     super.componentWillUnmount()
   }
 
-  protected createInstance (props: Props): L.ImageOverlay {
+  protected createInstance (props: Props, context: ContextType): L.ImageOverlay {
     const { points, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor, ...options } = props
-    const map = this.context.map
 
-    return L.imageOverlay(document.createElement('canvas').toDataURL('image/png'), getBounds(map, 3), options)
+    return L.imageOverlay(document.createElement('canvas').toDataURL('image/png'), getBounds(context.map, 3), options)
   }
 
   private setCanvasSize (): void {

@@ -75,7 +75,7 @@ export default class Point extends InteractiveLayer<L.Marker, Props, State> {
     if (opacity !== prevOpacity) {
       point.setOpacity(opacity)
     }
-    super.bindEvents(prevProps)
+    super.componentDidUpdate(prevProps)
   }
 
   public render (): React.ReactNode {

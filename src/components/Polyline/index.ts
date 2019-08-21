@@ -35,7 +35,6 @@ export default class Polyline<P extends L.PolylineOptions = L.PolylineOptions> e
     if (points !== prevPoints) {
       polyline.setLatLngs(points)
     }
-    super.bindEvents(prevProps)
-    super.setStyle()
+    super.componentDidUpdate(prevProps)
   }
 }

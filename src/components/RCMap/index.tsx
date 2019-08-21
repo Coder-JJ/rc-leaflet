@@ -182,7 +182,7 @@ export default class RCMap extends PureComponent<Props, State> {
     return (
       <Context.Provider value={context}>
         <div className={classNames('rc-leaflet-wrap', className)}>
-          <div className={'rc-leaflet-ref'} ref={this.ref} />
+          <div className='rc-leaflet-ref' ref={this.ref} />
           { context.map ? children : null }
         </div>
       </Context.Provider>

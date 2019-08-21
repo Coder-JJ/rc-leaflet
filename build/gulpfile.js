@@ -2,8 +2,6 @@ const { src, dest, series, parallel } = require('gulp')
 const del = require('delete')
 const tsc = require('gulp-typescript')
 
-const sleep = ms => async () => new Promise (resolve => setTimeout(resolve, ms))
-
 const cleanDist = (target = '../lib/*') => {
   const clean = cb => del(target, { force: true }, cb)
   return clean

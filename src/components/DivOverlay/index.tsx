@@ -34,11 +34,11 @@ export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extend
 
   protected instance: T
 
-  protected constructor (props: Props & P) {
-    super(props)
+  protected constructor (props: Props & P, context: ContextType) {
+    super(props, context)
     const { layer, position, children, onOpen, onClose, ...options } = props
 
-    this.instance = this.createInstance(options as P)
+    this.instance = this.createInstance(options as P, context)
     this.instance.on({ add: this.onOpen, remove: this.onClose })
   }
 
@@ -85,7 +85,7 @@ export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extend
     this.instance.remove()
   }
 
-  protected abstract createInstance (props: P): T
+  protected abstract createInstance (props: P, context: ContextType): T
 
   protected abstract bindOnLayer (layer: L.Layer): void
 

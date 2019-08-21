@@ -7,6 +7,7 @@ import Evented from '../Evented'
 interface PartialProps {
   onCreate (layer: L.Layer): void
   onAdd (e: L.LeafletEvent, layer: L.Layer): void
+  onUpdate (layer: L.Layer): void
   onBeforeRemove (layer: L.Layer): void
   onRemove (e: L.LeafletEvent, layer: L.Layer): void
   children: React.ReactNode
@@ -21,6 +22,7 @@ export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions,
     attribution: PropTypes.string,
     onCreate: PropTypes.func,
     onAdd: PropTypes.func,
+    onUpdate: PropTypes.func,
     onBeforeRemove: PropTypes.func,
     onRemove: PropTypes.func,
     children: PropTypes.node
@@ -34,10 +36,15 @@ export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions,
     super(props, context)
     const { onCreate, onAdd, onRemove, children, ...restProps } = props
 
-    this.instance = this.createInstance({ ...this.getTheme(), ...restProps } as P)
+    this.instance = this.createInstance({ ...this.getTheme(), ...restProps } as P, context)
     onCreate && onCreate(this.instance)
     this.instance.on({ add: this.onAdd, remove: this.onRemove })
     this.instance.addTo(context.map)
+  }
+
+  public componentDidUpdate (prevProps: Props & P): void {
+    super.componentDidUpdate(prevProps)
+    this.props.onUpdate && this.props.onUpdate(this.instance)
   }
 
   public componentWillUnmount (): void {
@@ -45,7 +52,7 @@ export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions,
     this.instance.remove()
   }
 
-  protected abstract createInstance (props: P): T
+  protected abstract createInstance (props: P, context: ContextType): T
 
   protected getTheme (): object {
     return {}

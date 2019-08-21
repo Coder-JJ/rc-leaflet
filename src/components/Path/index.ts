@@ -21,6 +21,11 @@ export default abstract class Path<T extends L.Path, P extends L.PathOptions> ex
     className: PropTypes.string
   }
 
+  public componentDidUpdate (prevProps: P): void {
+    this.setStyle()
+    super.componentDidUpdate(prevProps)
+  }
+
   protected setStyle (): void {
     const theme = this.getTheme()
     const path = this.instance

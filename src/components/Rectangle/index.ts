@@ -31,7 +31,6 @@ export default class Rectangle<P extends L.PolylineOptions = L.PolylineOptions> 
     if (prevBounds !== bounds) {
       rectangle.setBounds(bounds)
     }
-    this.bindEvents(prevProps)
-    this.setStyle()
+    super.componentDidUpdate(prevProps)
   }
 }
