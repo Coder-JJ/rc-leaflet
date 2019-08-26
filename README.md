@@ -78,11 +78,11 @@
 
 ## Plugins
 
+- [x] [rc-leaflet-heat](https://github.com/Coder-JJ/rc-leaflet-heat)
+
 - [x] [rc-leaflet-drawing](https://github.com/Coder-JJ/rc-leaflet-drawing)
 
 - [ ] rc-leaflet-cluster-point
-
-- [ ] rc-leaflet-heatmap
 
 - [ ] rc-leaflet-routing
 
