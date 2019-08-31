@@ -1,4 +1,4 @@
-## LayerGroup `v1.3.0+`
+## LayerGroup `v1.4.0+`
 
 ### Examples
 

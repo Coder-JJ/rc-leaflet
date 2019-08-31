@@ -1,4 +1,4 @@
-## SVGOverlay `v1.3.0+`
+## SVGOverlay `v1.4.0+`
 
 ### Examples
 

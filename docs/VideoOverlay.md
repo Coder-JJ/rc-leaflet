@@ -1,4 +1,4 @@
-## VideoOverlay `v1.3.0+`
+## VideoOverlay `v1.4.0+`
 
 ### Examples
 

@@ -34,17 +34,17 @@
 
 - [x] [TileLayer](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/TileLayer.md)
 
-- [x] [LayerGroup](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/LayerGroup.md) `(v1.3.0+)`
+- [x] [LayerGroup](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/LayerGroup.md) `(v1.4.0+)`
 
-- [x] [FeatureGroup](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/FeatureGroup.md) `(v1.3.0+)`
+- [x] [FeatureGroup](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/FeatureGroup.md) `(v1.4.0+)`
 
-- [x] [GeoJSON](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/GeoJSON.md) `(v1.3.0+)`
+- [x] [GeoJSON](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/GeoJSON.md) `(v1.4.0+)`
 
 - [x] [Point](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/Point.md)
 
 - [x] [MassPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/MassPoints.md) `(v1.1.0+)`
 
-- [x] [ClusterPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/ClusterPoints.md) `(v1.1.0+)` **will deprecate in `v1.4.0+`, use [rc-leaflet-cluster](https://github.com/Coder-JJ/rc-leaflet-cluster) instead**
+- [x] [ClusterPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/ClusterPoints.md) `(v1.1.0+)` **will deprecate in `v1.5.0+`, use [rc-leaflet-cluster](https://github.com/Coder-JJ/rc-leaflet-cluster) instead**
 
 - [x] [CircleMarker](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/CircleMarker.md)
 
@@ -56,11 +56,11 @@
 
 - [x] [Rectangle](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/Rectangle.md)
 
-- [x] [ImageOverlay](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/ImageOverlay.md) `(v1.3.0+)`
+- [x] [ImageOverlay](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/ImageOverlay.md) `(v1.4.0+)`
 
-- [x] [VideoOverlay](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/VideoOverlay.md) `(v1.3.0+)`
+- [x] [VideoOverlay](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/VideoOverlay.md) `(v1.4.0+)`
 
-- [x] [SVGOverlay](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/SVGOverlay.md) `(v1.3.0+)`
+- [x] [SVGOverlay](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/SVGOverlay.md) `(v1.4.0+)`
 
 - [x] [Icon](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/Icon.md)
 

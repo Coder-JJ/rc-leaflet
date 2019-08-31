@@ -1,4 +1,4 @@
-## v1.3.0
+## v1.4.0
 
 - feature: new Component [LayerGroup](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/LayerGroup.md).
 
