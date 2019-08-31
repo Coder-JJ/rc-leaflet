@@ -1,4 +1,4 @@
-## TileLayer `v2.0.0+`
+## TileLayer
 
 ### Examples
 
@@ -14,7 +14,7 @@
   )
   ```
 
-- 定制用法 `v2.3.0+`
+- 定制用法 `v1.2.0+`
 
   ```tsx
   import { RCMap, TileLayer } from 'rc-leaflet'

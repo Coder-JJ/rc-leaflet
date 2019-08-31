@@ -1,4 +1,4 @@
-## MassPoints `v2.2.0+`
+## MassPoints `v1.1.0+`
 
 ### Examples
 

@@ -1,6 +1,6 @@
 # React Map Components of Leaflet.js
 
-## History Versions
+## CHANGELOG
 
 - [rc-leaflet CHANGELOG](https://github.com/Coder-JJ/rc-leaflet/blob/master/CHANGELOG.md)
 
@@ -44,7 +44,7 @@
 
 - [x] [MassPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/MassPoints.md) `(v1.1.0+)`
 
-- [x] [ClusterPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/ClusterPoints.md) `(v1.1.0+)` **will deprecate in `v1.4.0+` version, use [rc-leaflet-cluster](https://github.com/Coder-JJ/rc-leaflet-cluster) instead**
+- [x] [ClusterPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/ClusterPoints.md) `(v1.1.0+)` **will deprecate in `v1.4.0+`, use [rc-leaflet-cluster](https://github.com/Coder-JJ/rc-leaflet-cluster) instead**
 
 - [x] [CircleMarker](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/CircleMarker.md)
 

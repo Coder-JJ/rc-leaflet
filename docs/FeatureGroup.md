@@ -1,4 +1,4 @@
-## FeatureGroup `v2.4.0+`
+## FeatureGroup `v1.3.0+`
 
 ### Examples
 

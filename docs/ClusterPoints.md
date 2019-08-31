@@ -1,4 +1,4 @@
-## ClusterPoints `v2.2.0+`
+## ClusterPoints `v1.1.0+`
 
 ### Examples
 

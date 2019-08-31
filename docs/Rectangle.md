@@ -1,4 +1,4 @@
-## Rectangle `v2.1.0+`
+## Rectangle
 
 ### Examples
 

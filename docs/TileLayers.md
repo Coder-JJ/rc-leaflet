@@ -1,4 +1,4 @@
-## TileLayers `v2.0.0+`
+## TileLayers
 
 ### Examples
 

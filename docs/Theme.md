@@ -1,4 +1,4 @@
-## Theme `v2.0.0+`
+## Theme
 
 ### Examples
 

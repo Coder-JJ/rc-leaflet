@@ -1,4 +1,4 @@
-## Polygon `v2.1.0+`
+## Polygon
 
 ### Examples
 

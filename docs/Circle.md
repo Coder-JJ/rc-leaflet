@@ -1,4 +1,4 @@
-## Circle `v1.2.0+`
+## Circle
 
 ### Examples
 

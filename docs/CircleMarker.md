@@ -1,4 +1,4 @@
-## CircleMarker `v2.1.0+`
+## CircleMarker
 
 ### Examples
 

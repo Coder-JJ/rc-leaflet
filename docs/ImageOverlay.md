@@ -1,4 +1,4 @@
-## ImageOverlay `v2.4.0+`
+## ImageOverlay `v1.3.0+`
 
 ### Examples
 
