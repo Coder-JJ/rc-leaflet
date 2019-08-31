@@ -17,7 +17,8 @@ const isTargetPoint = (layer: L.Layer): layer is L.Marker => {
   }
   const point = layer as L.Marker
   const icon = point.getIcon && point.getIcon()
-  return icon && icon instanceof L.DivIcon
+  const element = point.getElement && point.getElement()
+  return icon && element && icon instanceof L.DivIcon
 }
 
 export default class Content extends PureComponent<Props> {
