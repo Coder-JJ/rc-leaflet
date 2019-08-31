@@ -4,7 +4,7 @@ import { Pixel } from '../../util/PropTypes'
 import creator, { defaultIcon } from './creator'
 import BaseIcon, { Props as BaseIconProps } from '../BaseIcon'
 
-type Props = Readonly<BaseIconProps & L.DivIconOptions>
+type Props = Readonly<L.DivIconOptions & BaseIconProps>
 
 interface State {
   instance: L.DivIcon

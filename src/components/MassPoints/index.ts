@@ -1,11 +1,11 @@
 import { Children, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import { Pixel, Point } from '../../util/PropTypes'
+import { Point, Pixel } from '../../util/PropTypes'
 import { getBounds } from '../../util/Map'
 import { ContextType } from '../RCMap/Context'
-import { defaultOptions } from '../Icon/creator'
 import InteractiveLayer from '../InteractiveLayer'
+import { defaultOptions } from '../Icon/creator'
 import Popup from '../Popup'
 import Tooltip from '../Tooltip'
 
@@ -28,7 +28,7 @@ interface PartialProps {
   tooltipAnchor: L.PointExpression
 }
 
-type Props = Readonly<RequiredProps & Partial<PartialProps> & L.ImageOverlayOptions>
+type Props = Readonly<L.ImageOverlayOptions & Partial<PartialProps> & RequiredProps>
 
 type State = Readonly<{
   clickPoint: L.LatLngExpression

@@ -1,22 +1,21 @@
 {
   "name": "rc-leaflet",
-  "version": "1.2.2",
-  "description": "React Components of Leaflet",
+  "version": "1.3.0",
+  "description": "React Map Components of Leaflet",
   "keywords": [
     "typescript",
-    "ts",
     "react",
-    "leaflet",
-    "react-leaflet",
-    "rc-leaflet",
     "map",
     "component",
-    "react-component"
+    "leaflet",
+    "react-leaflet",
+    "rc-leaflet"
   ],
   "main": "lib/components/index.js",
   "module": "es/components/index.js",
   "typings": "es/components/index.d.ts",
   "files": [
+    "docs",
     "dist",
     "lib",
     "es"
@@ -31,7 +30,7 @@
     "eslint": "eslint -c ./.eslintrc.json ./src/**/*.ts ./src/**/*.tsx",
     "umd": "rollup -c ./build/rollup.config.js",
     "esm": "gulp --gulpfile ./build/gulpfile.js",
-    "build": "npm run eslint && npm run umd && npm run esm"
+    "build": "npm run eslint & npm run umd & npm run esm"
   },
   "pre-commit": "eslint",
   "author": {
@@ -43,15 +42,12 @@
     "url": "https://github.com/Coder-JJ/rc-leaflet"
   },
   "dependencies": {
-    "@types/airbnb-prop-types": "^2.13.1",
     "@types/classnames": "^2.2.8",
     "@types/leaflet": "^1.5.0",
     "@types/leaflet.markercluster": "^1.4.0",
     "@types/proj4leaflet": "^1.0.5",
     "@types/prop-types": "^15.7.1",
-    "airbnb-prop-types": "^2.13.2",
     "classnames": "^2.2.6",
-    "eslint-plugin-rc-leaflet": "^1.0.0",
     "leaflet": "^1.5.1",
     "leaflet.markercluster": "^1.4.1",
     "proj4leaflet": "^1.0.2",
@@ -63,7 +59,8 @@
     "@types/react-dom": "^16.8.4",
     "@types/webpack-env": "^1.13.9",
     "delete": "^1.1.0",
-    "eslint": "^6.0.1",
+    "eslint": "^6.3.0",
+    "eslint-plugin-rc-leaflet": "^1.1.0",
     "gulp": "^4.0.2",
     "gulp-typescript": "^5.0.1",
     "parcel-bundler": "^1.12.3",

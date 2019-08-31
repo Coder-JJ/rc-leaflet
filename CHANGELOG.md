@@ -1,3 +1,17 @@
+## v1.3.0
+
+- feature: new Component [LayerGroup](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/LayerGroup.md).
+
+- feature: new Component [FeatureGroup](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/FeatureGroup.md).
+
+- feature: new Component [GeoJSON](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/GeoJSON.md).
+
+- feature: new Component [ImageOverlay](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/ImageOverlay.md).
+
+- feature: new Component [VideoOverlay](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/VideoOverlay.md).
+
+- feature: new Component [SVGOverlay](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/SVGOverlay.md).
+
 ## v1.2.2
 
 - fix: `MassPoints` createInstance this `Bug`.
@@ -14,47 +28,13 @@
 
 - remove: remove `content` prop of `DivIcon`, there are too many edge cases to handle with.
 
-- feature: new Component `Point.Content`, used to replace `content` prop of `DivIcon`.
-
-  ```jsx
-  <Point>
-    <Point.Content />
-  </Point>
-
-  <Point>
-    <DivIcon>
-      <Point.Content />
-    </DivIcon>
-  </Point>
-
-  <DivIcon>
-    <Point>
-      <Point.Content />
-    </Point>
-  </DivIcon>
-
-  <ClusterPoints>
-    <Point.Content />
-  </ClusterPoints>
-
-  <DivIcon>
-    <ClusterPoints>
-      <Point.Content />
-    </ClusterPoints>
-  </DivIcon>
-  ```
+- feature: new Component [Point.Content](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/Point.md), used to replace `content` prop of `DivIcon`.
 
 - feature: new Components, export all abstract Components for plugin development.
 
 - feature: add `TileLayers.OpenStreetMap`, `TileLayers.GoogleMap` config.
 
-- feature: new Components `TileLayer.BMap`, `TileLayer.AMap`, `TileLayer.OpenStreetMap`, `TileLayer.GoogleMap`
-
-  ```jsx
-  <RCMap crs>
-    <TileLayer.GoogleMap />
-  </RCMap>
-  ```
+- feature: new Components `TileLayer.BMap`, `TileLayer.AMap`, `TileLayer.OpenStreetMap`, `TileLayer.GoogleMap`, see [TileLayer](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/TileLayer.md).
 
 ## v1.1.3
 
@@ -70,31 +50,9 @@
 
 ## v1.1.0
 
-- feature: new Component `MassPoints`.
+- feature: new Component [MassPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/MassPoints.md).
 
-  ```jsx
-  <MassPoints points />
-
-  <MassPoints points iconUrl />
-
-  <MassPoints points>
-    <Popup>this is Popup.</Popup>
-    <Tooltip>this is Tooltip.</Tooltip>
-  </MassPoints>
-  ```
-
-- feature: new Component `ClusterPoints`.
-
-  ```jsx
-  <ClusterPoints points />
-
-  <DivIcon>
-    <ClusterPoints points>
-      <Popup>this is Popup.</Popup>
-      <Tooltip>this is Tooltip.</Tooltip>
-    </ClusterPoints>
-  </DivIcon>
-  ```
+- feature: new Component [ClusterPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/ClusterPoints.md).
 
 - feature: `RCMap` supports all leaflet options.
 

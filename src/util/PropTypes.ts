@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import { withShape } from 'airbnb-prop-types'
 import L from 'leaflet'
 
 const ClassValueTypes = [PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object, PropTypes.oneOf<null>([null]), PropTypes.oneOf<undefined>([undefined])]
@@ -8,8 +7,8 @@ const ClassValue = PropTypes.oneOfType([...ClassValueTypes, PropTypes.arrayOf(Pr
 const Zoom = PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf<'center'>(['center'])])
 
 const PointObject = PropTypes.shape({ lat: PropTypes.number.isRequired, lng: PropTypes.number.isRequired })
-const PointTuple: PropTypes.Requireable<[number, number]> = withShape<[number, number], number[], { length: number }>(PropTypes.arrayOf(PropTypes.number.isRequired), { length: PropTypes.oneOf<2>([2]) })
-const PixelTuple: PropTypes.Requireable<[number, number]> = PointTuple
+const PointTuple: PropTypes.Requireable<number[]> = PropTypes.arrayOf(PropTypes.number.isRequired)
+const PixelTuple: PropTypes.Requireable<number[]> = PointTuple
 
 const CRS = PropTypes.shape({
   latLngToPoint: PropTypes.func.isRequired,
@@ -33,14 +32,14 @@ const Point = PropTypes.oneOfType<typeof PointTuple | typeof PointObject | PropT
   PropTypes.instanceOf(L.LatLng)
 ])
 
-type PointBoundsType = PropTypes.Requireable<[number, number][] | L.LatLngBounds>
+type PointBoundsType = PropTypes.Requireable<number[][] | L.LatLngBounds>
 
-const PointBounds: PointBoundsType = PropTypes.oneOfType<PropTypes.Requireable<[number, number][]> | PropTypes.Requireable<L.LatLngBounds>>([
+const PointBounds: PointBoundsType = PropTypes.oneOfType<PropTypes.Requireable<number[][]> | PropTypes.Requireable<L.LatLngBounds>>([
   PropTypes.arrayOf(PointTuple),
   PropTypes.instanceOf(L.LatLngBounds)
 ])
 
-type PixelType = PropTypes.Requireable<[number, number] | L.PointExpression>
+type PixelType = PropTypes.Requireable<number[] | L.PointExpression>
 
 const Pixel: PixelType = PropTypes.oneOfType<typeof PixelTuple | PropTypes.Requireable<L.Point>>([
   PixelTuple,
@@ -49,9 +48,9 @@ const Pixel: PixelType = PropTypes.oneOfType<typeof PixelTuple | PropTypes.Requi
 
 const Icon = PropTypes.oneOfType<PropTypes.Requireable<L.Icon> | PropTypes.Requireable<L.DivIcon>>([PropTypes.instanceOf(L.Icon), PropTypes.instanceOf(L.DivIcon)])
 
-type BoundsType = PropTypes.Requireable<[number, number][] | L.LatLngBounds>
+type BoundsType = PropTypes.Requireable<number[][] | L.LatLngBounds>
 
-const Bounds: BoundsType = PropTypes.oneOfType<PropTypes.Requireable<[number, number][]> | PropTypes.Requireable<L.LatLngBounds>>([
+const Bounds: BoundsType = PropTypes.oneOfType<PropTypes.Requireable<number[][]> | PropTypes.Requireable<L.LatLngBounds>>([
   PropTypes.arrayOf(PointTuple),
   PropTypes.instanceOf(L.LatLngBounds)
 ])

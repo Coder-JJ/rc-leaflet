@@ -21,7 +21,7 @@ interface PartialProps {
   onInit (map: L.Map): void
 }
 
-type Props = Readonly<Partial<PartialProps> & L.MapOptions>
+type Props = Readonly<L.MapOptions & Partial<PartialProps>>
 
 export default class RCMap extends PureComponent<Props, State> {
   public static propTypes = {

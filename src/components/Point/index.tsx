@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import { Pixel, Point as PointType } from '../../util/PropTypes'
+import { Point as PointType, Pixel } from '../../util/PropTypes'
 import { ContextType } from '../RCMap/Context'
 import Context, { ContextType as State } from './Context'
 import InteractiveLayer from '../InteractiveLayer'
@@ -13,7 +13,7 @@ interface RequiredProps {
   position: L.LatLngExpression
 }
 
-type Props = Readonly<RequiredProps & L.MarkerOptions>
+type Props = Readonly<L.MarkerOptions & RequiredProps>
 
 export default class Point extends InteractiveLayer<L.Marker, Props, State> {
   public static propTypes = {

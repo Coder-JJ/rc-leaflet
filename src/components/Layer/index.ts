@@ -5,6 +5,7 @@ import Context, { ContextType } from '../RCMap/Context'
 import Evented from '../Evented'
 
 interface PartialProps {
+  group: L.LayerGroup
   onCreate (layer: L.Layer): void
   onAdd (e: L.LeafletEvent, layer: L.Layer): void
   onUpdate (layer: L.Layer): void
@@ -18,6 +19,7 @@ type Props = Readonly<Partial<PartialProps>>
 export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions, S = {}> extends Evented<T, Props & P, S> {
   public static propTypes = {
     ...Evented.propTypes,
+    group: PropTypes.instanceOf(L.LayerGroup),
     pane: PropTypes.string,
     attribution: PropTypes.string,
     onCreate: PropTypes.func,
@@ -34,16 +36,27 @@ export default abstract class Layer<T extends L.Layer, P extends L.LayerOptions,
 
   protected constructor (props: Props & P, context: ContextType) {
     super(props, context)
-    const { onCreate, onAdd, onRemove, children, ...restProps } = props
+    const { group, onCreate, onAdd, onRemove, children, ...restProps } = props
 
     this.instance = this.createInstance({ ...this.getTheme(), ...restProps } as P, context)
     onCreate && onCreate(this.instance)
+    super.bindEvents()
     this.instance.on({ add: this.onAdd, remove: this.onRemove })
-    this.instance.addTo(context.map)
+    group ? group.addLayer(this.instance) : this.instance.addTo(context.map)
   }
 
   public componentDidUpdate (prevProps: Props & P): void {
-    super.componentDidUpdate(prevProps)
+    const { group: prevGroup } = prevProps
+    const { group } = this.props
+    const { map } = this.context
+
+    if (group && group !== prevGroup) {
+      prevGroup ? prevGroup.removeLayer(this.instance) : map.removeLayer(this.instance)
+      group.addLayer(this.instance)
+    } else if (!group && prevGroup) {
+      prevGroup.removeLayer(this.instance)
+      this.instance.addTo(map)
+    }
     this.props.onUpdate && this.props.onUpdate(this.instance)
   }
 

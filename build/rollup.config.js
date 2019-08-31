@@ -24,11 +24,10 @@ export default {
       'react-dom': 'ReactDOM',
       'prop-types': 'PropTypes',
       classnames: 'classNames',
-      'airbnb-prop-types': 'airbnbPropTypes',
       leaflet: 'L'
     }
   },
-  external: ['react', 'react-dom', 'prop-types', 'airbnb-prop-types', 'classnames', 'leaflet', 'proj4', 'proj4leaflet', 'leaflet.markercluster'],
+  external: ['react', 'react-dom', 'prop-types', 'classnames', 'leaflet', 'proj4', 'proj4leaflet', 'leaflet.markercluster'],
   plugins: [
     del({ targets: path.resolve(__dirname, '../dist/*') }),
     resolve(),

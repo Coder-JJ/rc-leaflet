@@ -6,7 +6,7 @@ interface PartialProps {
   iconUrl: string
 }
 
-type Props = Readonly<BaseIconProps & L.IconOptions>
+type Props = Readonly<L.IconOptions & BaseIconProps>
 
 interface State {
   instance: L.Icon

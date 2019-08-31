@@ -1,7 +1,7 @@
-import Path from '../Path'
 import PropTypes from 'prop-types'
-import { PointBounds } from '../../util/PropTypes'
 import L from 'leaflet'
+import { PointBounds } from '../../util/PropTypes'
+import Path from '../Path'
 
 interface RequiredProps {
   bounds: L.LatLngBoundsExpression

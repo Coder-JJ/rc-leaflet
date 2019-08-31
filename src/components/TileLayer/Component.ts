@@ -8,7 +8,7 @@ interface RequiredProps {
   url: string
 }
 
-export type Props = Readonly<RequiredProps & L.TileLayerOptions>
+export type Props = Readonly<L.TileLayerOptions & RequiredProps>
 
 export default class TileLayer extends Component<Props> {
   public static propTypes = {

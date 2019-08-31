@@ -20,29 +20,15 @@ export default abstract class Evented<T extends L.Evented, P, S> extends PureCom
 
   protected instance: T
 
-  public componentDidMount (): void {
-    this.bindEvents()
+  private getEventHandler (name: keyof MouseEvents): LeafletMouseEventHandlerFn {
+    return (e: L.LeafletMouseEvent) => this.props[name] && this.props[name](e)
   }
 
-  public componentDidUpdate (prevProps: Props & P): void {
-    this.bindEvents(prevProps)
-  }
-
-  protected bindEvents (prevProps?: Props & P): void {
+  protected bindEvents (): void {
+    const events: L.LeafletEventHandlerFnMap = {}
     for (const key of Object.keys(Evented.propTypes)) {
-      const prevHandler = (prevProps && prevProps[key]) || null
-      const handler = this.props[key]
-
-      if (handler !== prevHandler) {
-        const type = key.replace('on', '').toLowerCase()
-
-        if (prevHandler) {
-          this.instance.off(type, prevHandler)
-        }
-        if (handler) {
-          this.instance.on(type, handler)
-        }
-      }
+      events[key.replace('on', '').toLowerCase()] = this.getEventHandler(key as keyof MouseEvents)
     }
+    this.instance.on(events)
   }
 }

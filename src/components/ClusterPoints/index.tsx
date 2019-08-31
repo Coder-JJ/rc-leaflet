@@ -4,7 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
 import 'leaflet.markercluster'
-import { Icon, Point } from '../../util/PropTypes'
+import { Point, Icon } from '../../util/PropTypes'
 import { ContextType } from '../RCMap/Context'
 import Layer from '../Layer'
 import PointContext from '../Point/Context'
@@ -13,6 +13,10 @@ import { defaultIcon } from '../DivIcon/creator'
 
 type Icon = L.Icon | L.DivIcon
 
+export type ChunkProgress = (processed?: number, total?: number, time?: number) => void
+
+export type IconCreateFunction = (cluster: L.MarkerCluster) => Icon
+
 interface RequiredProps {
   points: L.LatLngExpression[]
 }
@@ -20,10 +24,10 @@ interface RequiredProps {
 interface PartialProps {
   icon: Icon
   clusterPane: string
-  chunkProgress (processed?: number, total?: number, time?: number): void
+  chunkProgress: ChunkProgress
 }
 
-type Props = Readonly<RequiredProps & Partial<PartialProps> & L.MarkerClusterGroupOptions>
+type Props = Readonly<L.MarkerClusterGroupOptions & Partial<PartialProps> & RequiredProps>
 
 export default class ClusterPoints extends Layer<L.MarkerClusterGroup, Props> {
   public static propTypes = {
