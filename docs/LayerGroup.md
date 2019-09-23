@@ -2,7 +2,7 @@
 
 ### Examples
 
-- 基本用法
+- Basic Usage
 
   ```tsx
   import {
@@ -63,7 +63,7 @@
 
   - 只对`Point`和基于`ImageOverlay`的组件起作用
 
-### 继承自`InteractiveLayer`的`Props`
+### `Props` inherited from `InteractiveLayer`
 
 - interactive
 
@@ -81,7 +81,7 @@
 
   - `LayerGroup`的鼠标事件是否冒泡
 
-### 继承自`Layer`的`Props`
+### `Props` inherited from `Layer`
 
 - pane
 
@@ -141,7 +141,7 @@
 
   - `LayerGroup`删除时的回调
 
-### 继承自`Evented`的`Props`
+### `Props` inherited from `Evented`
 
 - onClick
 

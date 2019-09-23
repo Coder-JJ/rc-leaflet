@@ -1,3 +1,7 @@
+## v1.4.1
+
+- feature: totally rewrite [MassPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/MassPoints.md), now it supports multi icons, mouse events, and `DivOverlay` render props.
+
 ## v1.4.0
 
 - feature: new Component [LayerGroup](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/LayerGroup.md).
@@ -14,7 +18,7 @@
 
 ## v1.2.2
 
-- fix: `MassPoints` createInstance this `Bug`.
+- fix: [MassPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/MassPoints.md) createInstance this `Bug`.
 
 - feature: add onUpdate lifecycle hook to components extends Layer, for plugin development.
 
@@ -42,7 +46,7 @@
 
 ## v1.1.2
 
-- fix: unbind map events when `MassPoints` is unmounted.
+- fix: unbind map events when [MassPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/MassPoints.md) is unmounted.
 
 ## v1.1.1
 

@@ -2,7 +2,7 @@
 
 ### Examples
 
-- 基本用法
+- Basic Usage
 
   ```tsx
   import { RCMap, TileLayer, Point, ClusterPoints, DivIcon } from 'rc-leaflet'
@@ -46,7 +46,7 @@
 
   - 图标背景的相对位置
 
-### 继承自`Icon`的`Props`
+### `Props` inherited from `Icon`
 
 - iconSize
 

@@ -2,7 +2,7 @@
 
 ### Examples
 
-- 基本用法
+- Basic Usage
 
   ```tsx
   import {
@@ -84,7 +84,7 @@
 
   - 点位数组转换成`L.LatLng`的转换函数, 默认为点位格式为`[lng, lat]`, 通过设置该函数, 可以传入`[lat, lng]`
 
-### 继承自`LayerGroup`的`Props`
+### `Props` inherited from `LayerGroup`
 
 - zIndex
 
@@ -94,7 +94,7 @@
 
   - 现阶段不起作用
 
-### 继承自`Layer`的`Props`
+### `Props` inherited from `Layer`
 
 - pane
 
@@ -154,7 +154,7 @@
 
   - `GeoJSON`删除时的回调
 
-### 继承自`Evented`的`Props`
+### `Props` inherited from `Evented`
 
 - onClick
 

@@ -2,7 +2,7 @@
 
 ### Examples
 
-- 基本用法
+- Basic Usage
 
   ```tsx
   import { RCMap, TileLayer } from 'rc-leaflet'
@@ -113,7 +113,7 @@
 
   - 瓦片图片的`crossorigin`属性
 
-### 继承自`GridLayer`的`Props`
+### `Props` inherited from `GridLayer`
 
 - tileSize
 
@@ -211,7 +211,7 @@
 
   - when panning the map, keep this many rows and columns of tiles before unloading them.
 
-### 继承自`Layer`的`Props`
+### `Props` inherited from `Layer`
 
 - pane
 

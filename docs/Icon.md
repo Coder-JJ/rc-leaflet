@@ -2,7 +2,7 @@
 
 ### Examples
 
-- 基本用法
+- Basic Usage
 
   ```tsx
   import { RCMap, TileLayer, Point, ClusterPoints, Icon } from 'rc-leaflet'

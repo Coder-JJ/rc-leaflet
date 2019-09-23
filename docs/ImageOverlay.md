@@ -2,7 +2,7 @@
 
 ### Examples
 
-- 基本用法
+- Basic Usage
 
   ```tsx
   import {
@@ -115,7 +115,7 @@
 
   - 图片加载失败的回调
 
-### 继承自`InteractiveLayer`的`Props`
+### `Props` inherited from `InteractiveLayer`
 
 - interactive
 
@@ -133,7 +133,7 @@
 
   - `ImageOverlay`的鼠标事件是否冒泡
 
-### 继承自`Layer`的`Props`
+### `Props` inherited from `Layer`
 
 - pane
 
@@ -193,7 +193,7 @@
 
   - `ImageOverlay`删除时的回调
 
-### 继承自`Evented`的`Props`
+### `Props` inherited from `Evented`
 
 - onClick
 

@@ -2,7 +2,7 @@
 
 ### Examples
 
-- 基本用法
+- Basic Usage
 
   ```tsx
   import {
@@ -19,7 +19,7 @@
   )
   ```
 
-- 完整用法
+- Full Usage
 
   ```tsx
   (
@@ -187,7 +187,7 @@
 
   - 分批处理进度回调函数
 
-### 继承自`Layer`的`Props`
+### `Props` inherited from `Layer`
 
 - attribution
 
@@ -237,7 +237,7 @@
 
   - `ClusterPoints`删除时的回调
 
-### 继承自`Evented`的`Props`
+### `Props` inherited from `Evented`
 
 - onClick
 

@@ -2,232 +2,78 @@ import { Children, isValidElement, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
 import { Point, Pixel } from '../../util/PropTypes'
-import { getBounds } from '../../util/Map'
 import { ContextType } from '../RCMap/Context'
-import InteractiveLayer from '../InteractiveLayer'
-import { defaultOptions } from '../Icon/creator'
+import Layer from '../Layer'
 import Popup from '../Popup'
 import Tooltip from '../Tooltip'
+import MassLayer, { EventTarget, MassLayerOptions } from './MassLayer'
 
-interface Box {
-  top: number
-  bottom: number
-  left: number
-  right: number
-}
-
-interface RequiredProps {
-  points: L.LatLngExpression[]
-}
-
-interface PartialProps {
-  iconUrl: string
-  iconSize: L.PointExpression
-  iconAnchor: L.PointExpression
-  popupAnchor: L.PointExpression
-  tooltipAnchor: L.PointExpression
-}
-
-type Props = Readonly<L.ImageOverlayOptions & Partial<PartialProps> & RequiredProps>
+type Props = Readonly<MassLayerOptions>
 
 type State = Readonly<{
-  clickPoint: L.LatLngExpression
-  hoverPoint: L.LatLngExpression
+  clickPoint: EventTarget
+  hoverPoint: EventTarget
 }>
 
-export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, State> {
+const Icon = {
+  iconUrl: PropTypes.string,
+  iconSize: Pixel,
+  iconAnchor: Pixel,
+  popupAnchor: Pixel,
+  tooltipAnchor: Pixel
+}
+
+export {
+  EventTarget,
+  MassLayerOptions
+}
+
+export default class MassPoints extends Layer<MassLayer, Props, State> {
   public static propTypes = {
-    ...InteractiveLayer.propTypes,
-    points: PropTypes.arrayOf(Point).isRequired,
-    iconUrl: PropTypes.string,
-    iconSize: Pixel,
-    iconAnchor: Pixel,
-    popupAnchor: Pixel,
-    tooltipAnchor: Pixel
+    ...Layer.propTypes,
+    points: PropTypes.arrayOf(PropTypes.shape({ position: Point, ...Icon })).isRequired,
+    ...Icon
   }
-
-  private canvas: HTMLCanvasElement
-
-  private ctx: CanvasRenderingContext2D
-
-  private cursor: string | null
-
-  private image: HTMLImageElement
-
-  private imageReady: Promise<void>
 
   protected constructor (props: Props, context: ContextType) {
     super(props, context)
     this.state = { clickPoint: undefined, hoverPoint: undefined }
-    const map = context.map
-
-    this.canvas = document.createElement('canvas')
-    this.ctx = this.canvas.getContext('2d')
-    this.setCanvasSize()
-    const element = this.instance.getElement()
-    element.style['pointer-events'] = 'inherit'
-    this.cursor = element.style.cursor
-    this.image = new Image()
-    this.image.src = this.getIcon()
-    this.imageReady = new Promise(resolve => {
-      this.image.onload = () => {
-        this.draw()
-        resolve()
-      }
-    })
-    map.on('moveend', this.onMoveEnd)
-    map.on('click', this.onClick)
-    map.on('mousemove', this.onMouseMove)
+    this.instance.on('click', this.onClick)
+    this.instance.on('mouseover', this.onMouseOver)
+    this.instance.on('mouseout', this.onMouseOut)
   }
 
-  public async componentDidUpdate (prevProps: Props): Promise<void> {
-    const { points: prevPoints, iconUrl: prevIconUrl, iconSize: prevIconSize, iconAnchor: prevIconAnchor } = prevProps
-    const { points, iconUrl, iconSize, iconAnchor } = this.props
+  public componentDidUpdate (prevProps: Props): void {
+    const { points: prevPoints, iconUrl: prevIconUrl, iconSize: prevIconSize, iconAnchor: prevIconAnchor, popupAnchor: prevPopupAnchor, tooltipAnchor: prevTooltipAnchor } = prevProps
+    const { points, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor } = this.props
 
-    if (iconUrl !== prevIconUrl) {
-      this.image.src = this.getIcon()
-      return
+    if (points !== prevPoints) {
+      this.setState({ clickPoint: undefined, hoverPoint: undefined })
     }
-    if (points !== prevPoints || iconSize !== prevIconSize || iconAnchor !== prevIconAnchor) {
-      await this.imageReady
-      this.draw()
+    if (popupAnchor !== prevPopupAnchor) {
+      this.instance.setPopupAnchor(popupAnchor)
+    }
+    if (tooltipAnchor !== prevTooltipAnchor) {
+      this.instance.setTooltipAnchor(tooltipAnchor)
+    }
+    if (points !== prevPoints || iconUrl !== prevIconUrl || iconSize !== prevIconSize || iconAnchor !== prevIconAnchor) {
+      this.instance.setOptions({ points, iconUrl, iconSize, iconAnchor })
     }
     super.componentDidUpdate(prevProps)
   }
 
-  public componentWillUnmount (): void {
-    const map = this.context.map
-    map.off('moveend', this.onMoveEnd)
-    map.off('click', this.onClick)
-    map.off('mousemove', this.onMouseMove)
-    super.componentWillUnmount()
+  protected createInstance (props: Props): MassLayer {
+    const { points, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor } = props
+    return new MassLayer({ points, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor })
   }
 
-  protected createInstance (props: Props, context: ContextType): L.ImageOverlay {
-    const { points, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor, ...options } = props
+  private onPopupClose = (): void => this.setState({ clickPoint: undefined })
 
-    return L.imageOverlay(document.createElement('canvas').toDataURL('image/png'), getBounds(context.map, 3), options)
-  }
+  private onClick = (): void => this.setState(({ clickPoint, hoverPoint }) => ({ clickPoint: clickPoint === hoverPoint ? undefined : hoverPoint }))
 
-  private setCanvasSize (): void {
-    const size = this.context.map.getSize()
-    this.canvas.width = 3 * size.x
-    this.canvas.height = 3 * size.y
-  }
+  private onMouseOut = (): void => this.setState({ hoverPoint: undefined })
 
-  private draw (): void {
-    const { points } = this.props
-    const size = this.context.map.getSize()
-
-    const [width, height] = this.getIconSize()
-    this.setState({ clickPoint: undefined, hoverPoint: undefined })
-    this.ctx.clearRect(0, 0, 3 * size.x, 3 * size.y)
-    this.forEach(points, (position: L.LatLngExpression, box: Box) => this.ctx.drawImage(this.image, box.left + size.x, box.top + size.y, width, height))
-    this.instance.setUrl(this.canvas.toDataURL('image/png'))
-  }
-
-  private pointExpressionToTuple = (pixel: L.PointExpression): L.PointTuple => (pixel instanceof L.Point ? [pixel.x, pixel.y] : pixel)
-
-  private getIcon = (): string => this.props.iconUrl || defaultOptions.iconUrl
-
-  private getIconSize (): L.PointTuple {
-    const { iconSize } = this.props
-
-    if (iconSize) {
-      return this.pointExpressionToTuple(iconSize)
-    }
-    return [this.image.width, this.image.height]
-  }
-
-  private getIconAnchor (): L.PointTuple {
-    const { iconAnchor } = this.props
-
-    if (iconAnchor) {
-      return this.pointExpressionToTuple(iconAnchor)
-    }
-    if (this.getIcon() === defaultOptions.iconUrl) {
-      return this.pointExpressionToTuple(defaultOptions.iconAnchor)
-    }
-    return [0, 0]
-  }
-
-  private getPopupAnchor (): L.PointTuple {
-    const { popupAnchor } = this.props
-
-    if (popupAnchor) {
-      return this.pointExpressionToTuple(popupAnchor)
-    }
-    if (this.getIcon() === defaultOptions.iconUrl) {
-      const [x, y] = this.pointExpressionToTuple(defaultOptions.popupAnchor)
-      return [x, y + 7]
-    }
-    return undefined
-  }
-
-  private getTooltipAnchor (): L.PointTuple {
-    const { tooltipAnchor } = this.props
-
-    if (tooltipAnchor) {
-      return this.pointExpressionToTuple(tooltipAnchor)
-    }
-    if (this.getIcon() === defaultOptions.iconUrl) {
-      return this.pointExpressionToTuple(defaultOptions.tooltipAnchor)
-    }
-    return undefined
-  }
-
-  private forEach (points: L.LatLngExpression[], callback: (position: L.LatLngExpression, box: Box) => boolean | void): void {
-    const map = this.context.map
-    const size = map.getSize()
-    const [width, height] = this.getIconSize()
-    const [x, y] = this.getIconAnchor()
-
-    for (const position of points) {
-      const pixel = map.latLngToContainerPoint(position)
-      const iconTop = pixel.y - y
-      const bottom = pixel.y + height - y
-      const left = pixel.x - x
-      const right = pixel.x + width - x
-      if (bottom <= -size.y || iconTop >= 2 * size.y) {
-        continue
-      }
-      if (right <= -size.x || left >= 2 * size.x) {
-        continue
-      }
-      if (callback(position, { top: iconTop, bottom, left, right })) {
-        break
-      }
-    }
-  }
-
-  private onMoveEnd = async (e: L.LeafletEvent): Promise<void> => {
-    await this.imageReady
-    this.setCanvasSize()
-    this.draw()
-    this.instance.setBounds(getBounds(this.context.map, 3))
-  }
-
-  private onClick = (e: L.LeafletMouseEvent): void => this.setState(({ clickPoint, hoverPoint }) => ({ clickPoint: clickPoint === hoverPoint ? undefined : hoverPoint }))
-
-  private onMouseMove = (e: L.LeafletMouseEvent): void => {
-    const { points } = this.props
-
-    const element = this.instance.getElement()
-    let isMouseOver = false
-    this.forEach([...points].reverse(), (position: L.LatLngExpression, box: Box): boolean => {
-      const { x, y } = e.containerPoint
-      if (x > box.left && x < box.right && y > box.top && y < box.bottom) {
-        this.setState({ hoverPoint: position })
-        element.style.cursor = 'pointer'
-        isMouseOver = true
-      }
-      return isMouseOver
-    })
-    if (!isMouseOver) {
-      this.setState({ hoverPoint: undefined })
-      element.style.cursor = this.cursor
-    }
-  }
+  private onMouseOver = (e: L.LeafletEvent & EventTarget): void => this.setState({ hoverPoint: { index: e.index, point: e.point } })
 
   public render (): React.ReactNode {
     const { children } = this.props
@@ -236,20 +82,16 @@ export default class MassPoints extends InteractiveLayer<L.ImageOverlay, Props, 
     return children ? (
       Children.map(children, child => {
         if (isValidElement(child)) {
-          let position
-          let offset: [number, number]
+          let onClose: L.LeafletEventHandlerFn
+          let target: EventTarget
           const type = child.type as any
-          if (type === Popup) {
-            position = clickPoint
-            offset = this.getPopupAnchor()
-          } else if (type === Tooltip) {
-            position = hoverPoint
-            offset = this.getTooltipAnchor()
+          if (clickPoint && type === Popup) {
+            onClose = this.onPopupClose
+            target = clickPoint
+          } else if (hoverPoint && type === Tooltip) {
+            target = hoverPoint
           }
-          if (position) {
-            return cloneElement<{ position: L.LatLngExpression, offset: L.PointExpression }>(child as React.ReactElement, { position, offset })
-          }
-          return cloneElement<{ layer: L.ImageOverlay }>(child as React.ReactElement, { layer: this.instance })
+          return cloneElement<{ layer: MassLayer, target: EventTarget, onClose: L.LeafletEventHandlerFn }>(child as React.ReactElement, { layer: this.instance, target, onClose })
         }
         return child
       })

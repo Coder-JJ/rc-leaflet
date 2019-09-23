@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "lib": ["es2017", "dom"],
     "declaration": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "downlevelIteration": true
   }
 }

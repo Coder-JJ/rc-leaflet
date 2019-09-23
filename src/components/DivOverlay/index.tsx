@@ -2,13 +2,16 @@ import React, { PureComponent } from 'react'
 import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import L from 'leaflet'
-import { Pixel, Point } from '../../util/PropTypes'
+import { Point, Pixel } from '../../util/PropTypes'
 import Context, { ContextType } from '../RCMap/Context'
+
+type RenderProps = (target: any) => React.ReactNode
 
 interface PartialProps {
   layer: L.Layer
   position: L.LatLngExpression
-  children: React.ReactNode
+  target: any
+  children: React.ReactNode | RenderProps
   onOpen: L.LeafletEventHandlerFn
   onClose: L.LeafletEventHandlerFn
 }
@@ -23,7 +26,7 @@ export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extend
     pane: PropTypes.string,
     layer: PropTypes.instanceOf(L.Layer),
     position: Point,
-    children: PropTypes.node,
+    children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     onOpen: PropTypes.func,
     onClose: PropTypes.func
   }
@@ -121,9 +124,16 @@ export default abstract class DivOverlay<T extends L.Popup | L.Tooltip, P extend
   }
 
   public render (): React.ReactNode {
-    const { children } = this.props
+    const { target, children } = this.props
     const overlay = this.instance as { _contentNode?: Element }
 
-    return overlay._contentNode ? createPortal(children, overlay._contentNode) : null
+    if (overlay._contentNode) {
+      let content: React.ReactNode = children
+      if (typeof children === 'function') {
+        content = target ? (children as RenderProps)(target) : null
+      }
+      return createPortal(content, overlay._contentNode)
+    }
+    return null
   }
 }

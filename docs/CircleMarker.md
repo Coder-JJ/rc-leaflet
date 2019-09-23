@@ -2,7 +2,7 @@
 
 ### Examples
 
-- 基本用法
+- Basic Usage
 
   ```tsx
   import {
@@ -72,7 +72,7 @@
 
   - 圆的中心半径, 单位像素
 
-### 继承自`Path`的`Props`
+### `Props` inherited from `Path`
 
 - stroke
 
@@ -178,7 +178,7 @@
 
   - 设置`CircleMarker`的类名
 
-### 继承自`InteractiveLayer`的`Props`
+### `Props` inherited from `InteractiveLayer`
 
 - interactive
 
@@ -196,7 +196,7 @@
 
   - `CircleMarker`的鼠标事件是否冒泡
 
-### 继承自`Layer`的`Props`
+### `Props` inherited from `Layer`
 
 - pane
 
@@ -256,7 +256,7 @@
 
   - `CircleMarker`删除时的回调
 
-### 继承自`Evented`的`Props`
+### `Props` inherited from `Evented`
 
 - onClick
 

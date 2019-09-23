@@ -2,7 +2,7 @@
 
 ### Examples
 
-- 基本用法
+- Basic Usage
 
   ```tsx
   import {
@@ -202,7 +202,7 @@
 
   - `Popup`关闭时的回调
 
-### 继承自`DivOverlay`的`Props`
+### `Props` inherited from `DivOverlay`
 
 - className
 
@@ -228,7 +228,7 @@
 
   - 缩放动画
 
-### 继承自`Layer`的`Props`
+### `Props` inherited from `Layer`
 
 - pane
 

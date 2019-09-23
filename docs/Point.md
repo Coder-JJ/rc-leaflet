@@ -2,7 +2,7 @@
 
 ### Examples
 
-- 基本用法
+- Basic Usage
 
   ```tsx
   import { RCMap, TileLayer, Point, DivIcon } from 'rc-leaflet'
@@ -156,7 +156,7 @@
 
   - 在地图边缘拖拽鼠标时自动平移地图的像素值
 
-### 继承自`InteractiveLayer`的`Props`
+### `Props` inherited from `InteractiveLayer`
 
 - interactive
 
@@ -174,7 +174,7 @@
 
   - `Point`的鼠标事件是否冒泡
 
-### 继承自`Layer`的`Props`
+### `Props` inherited from `Layer`
 
 - pane
 
@@ -234,7 +234,7 @@
 
   - `Point`删除时的回调
 
-### 继承自`Evented`的`Props`
+### `Props` inherited from `Evented`
 
 - onClick
 

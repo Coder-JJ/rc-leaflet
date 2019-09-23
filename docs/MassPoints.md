@@ -1,13 +1,17 @@
-## MassPoints `v1.1.0+`
+## MassPoints `v2.2.0+`
 
 ### Examples
 
-- 基本用法
+- Basic Usage
 
   ```tsx
   import { RCMap, TileLayer, MassPoints, Popup, Tooltip } from 'rc-leaflet'
 
-  (
+  const points = [
+    { position, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor, ...rest }
+  ]
+
+  return (
     <RCMap crs center>
       <TileLayer />
       <MassPoints points />
@@ -15,25 +19,47 @@
   )
   ```
 
-- 完整用法
+- Full Usage
 
   ```tsx
-  (
+  const points = [
+    { position, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor, ...rest }
+  ]
+
+  return (
     <RCMap crs center>
       <TileLayer />
-      <MassPoints points iconUrl>
-        <Popup />
-        <Tooltip />
+      <MassPoints points iconUrl iconSize iconAnchor popupAnchor tooltipAnchor>
+        <Popup>
+          { target => <div /> }
+        </Popup>
+        <Tooltip>
+          { target => <div /> }
+        </Tooltip>
       </MassPoints>
     </RCMap>
   )
   ```
 
+### MassPoint
+
+```ts
+{
+  position: L.LatLngExpression
+  iconUrl: string
+  iconSize: L.PointExpression
+  iconAnchor: L.PointExpression
+  popupAnchor: L.PointExpression
+  tooltipAnchor: L.PointExpression
+  [key: string]: any
+}
+```
+
 ### Props
 
 - points
 
-  - type: `L.LatLngExpression[]`
+  - type: `MassPoint[]`
 
   - required: `true`
 
@@ -79,91 +105,7 @@
 
   - `Tooltip`的锚点
 
-### 继承自`ImageOverlayOptions`的`Props`
-
-- opacity
-
-  - type: `number`
-
-  - required: `false`
-
-  - 图层的透明度
-
-- alt
-
-  - type: `string`
-
-  - required: `false`
-
-  - 图层的`alt`属性
-
-- crossOrigin
-
-  - type: `boolean | string`
-
-  - required: `false`
-
-  - 图层的`crossorigin`属性
-
-- errorOverlayUrl
-
-  - type: `string`
-
-  - required: `false`
-
-  - 图层图片加载失败时显示的`url`
-
-- zIndex
-
-  - type: `number`
-
-  - required: `false`
-
-  - 设置图层的`z-index`
-
-- className
-
-  - tpye: `string`
-
-  - required: `false`
-
-  - 设置图层的类名
-
-- onLoad
-
-  - type: `(e: L.LeafletEvent) => void`
-
-  - required: `false`
-
-  - 图层加载成功的回调
-
-- onError
-
-  - type: `(e: L.LeafletEvent) => void`
-
-  - required: `false`
-
-  - 图层加载失败的回调
-
-### 继承自`InteractiveLayer`的`Props`
-
-- interactive
-
-  - type: `boolean`
-
-  - required: `false`
-
-  - 图层是否具有交互效果
-
-- bubblingMouseEvents
-
-  - type: `boolean`
-
-  - required: `false`
-
-  - 图层的鼠标事件是否冒泡
-
-### 继承自`Layer`的`Props`
+### `Props` inherited from `Layer`
 
 - pane
 
@@ -223,7 +165,7 @@
 
   - 图层删除时的回调
 
-### 继承自`Evented`的`Props`
+### `Props` inherited from `Evented`
 
 - onClick
 
