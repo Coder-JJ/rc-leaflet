@@ -1,6 +1,6 @@
 {
   "name": "rc-leaflet",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "React Map Components of Leaflet",
   "keywords": [
     "typescript",
