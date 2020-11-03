@@ -1,3 +1,31 @@
+## v1.4.2
+
+- feature: [MassPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/MassPoints.md) new props.
+
+  - throttleThreshold
+
+    - type: `number`
+
+    - required: `false`
+
+    - default `20480`
+
+    - when `points.length` > `throttleThreshold`, `MassPoints` will use throttled draw function
+
+  - throttleDuration default
+
+    - type: `number`
+
+    - required: `false`
+
+    - default `60`
+
+    - used in throttled draw function, draw points per `throttleDuration` ms
+
+- fix: [MassPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/MassPoints.md) layer drift when zoom is small.
+
+- fix: [MassPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/MassPoints.md) is static duration zoom animation.
+
 ## v1.4.1
 
 - feature: totally rewrite [MassPoints](https://github.com/Coder-JJ/rc-leaflet/blob/master/docs/MassPoints.md), now it supports multi icons, mouse events, and `DivOverlay` render props.

@@ -6,7 +6,7 @@ import { ContextType } from '../RCMap/Context'
 import Layer from '../Layer'
 import Popup from '../Popup'
 import Tooltip from '../Tooltip'
-import MassLayer, { EventTarget, MassLayerOptions } from './MassLayer'
+import MassLayer, { EventTarget, MassLayerOptions, defaultOptions } from './MassLayer'
 
 type Props = Readonly<MassLayerOptions>
 
@@ -35,6 +35,11 @@ export default class MassPoints extends Layer<MassLayer, Props, State> {
     ...Icon
   }
 
+  public static defaultProps = {
+    throttleThreshold: defaultOptions.throttleThreshold,
+    throttleDuration: defaultOptions.throttleDuration
+  }
+
   protected constructor (props: Props, context: ContextType) {
     super(props, context)
     this.state = { clickPoint: undefined, hoverPoint: undefined }
@@ -44,8 +49,8 @@ export default class MassPoints extends Layer<MassLayer, Props, State> {
   }
 
   public componentDidUpdate (prevProps: Props): void {
-    const { points: prevPoints, iconUrl: prevIconUrl, iconSize: prevIconSize, iconAnchor: prevIconAnchor, popupAnchor: prevPopupAnchor, tooltipAnchor: prevTooltipAnchor } = prevProps
-    const { points, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor } = this.props
+    const { points: prevPoints, iconUrl: prevIconUrl, iconSize: prevIconSize, iconAnchor: prevIconAnchor, popupAnchor: prevPopupAnchor, tooltipAnchor: prevTooltipAnchor, throttleThreshold: prevThrottleThreshold, throttleDuration: prevThrottleDuration } = prevProps
+    const { points, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor, throttleThreshold, throttleDuration } = this.props
 
     if (points !== prevPoints) {
       this.setState({ clickPoint: undefined, hoverPoint: undefined })
@@ -56,15 +61,15 @@ export default class MassPoints extends Layer<MassLayer, Props, State> {
     if (tooltipAnchor !== prevTooltipAnchor) {
       this.instance.setTooltipAnchor(tooltipAnchor)
     }
-    if (points !== prevPoints || iconUrl !== prevIconUrl || iconSize !== prevIconSize || iconAnchor !== prevIconAnchor) {
-      this.instance.setOptions({ points, iconUrl, iconSize, iconAnchor })
+    if (points !== prevPoints || iconUrl !== prevIconUrl || iconSize !== prevIconSize || iconAnchor !== prevIconAnchor || throttleThreshold !== prevThrottleThreshold || throttleDuration !== prevThrottleDuration) {
+      this.instance.setOptions({ points, iconUrl, iconSize, iconAnchor, throttleThreshold, throttleDuration })
     }
     super.componentDidUpdate(prevProps)
   }
 
   protected createInstance (props: Props): MassLayer {
-    const { points, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor } = props
-    return new MassLayer({ points, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor })
+    const { points, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor, throttleThreshold, throttleDuration } = props
+    return new MassLayer({ points, iconUrl, iconSize, iconAnchor, popupAnchor, tooltipAnchor, throttleThreshold, throttleDuration })
   }
 
   private onPopupClose = (): void => this.setState({ clickPoint: undefined })

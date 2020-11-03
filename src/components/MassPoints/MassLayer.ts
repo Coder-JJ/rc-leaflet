@@ -1,5 +1,6 @@
 import L from 'leaflet'
 import { distinct } from '../../util/Array'
+import throttle from '../../util/throttle'
 import { defaultOptions as defaultIconOptions } from '../Icon/creator'
 
 export type Icon = Partial<{
@@ -29,10 +30,14 @@ export interface EventTarget {
 
 export interface MassLayerOptions extends L.InteractiveLayerOptions, Icon {
   points: MassPoint[]
+  throttleThreshold?: number
+  throttleDuration?: number
 }
 
-const defaultOptions: MassLayerOptions = {
-  points: []
+export const defaultOptions: MassLayerOptions = {
+  points: [],
+  throttleThreshold: 20480,
+  throttleDuration: 60
 }
 
 export default class MassLayer extends L.Layer {
@@ -52,12 +57,21 @@ export default class MassLayer extends L.Layer {
 
   private click: EventTarget
 
+  private throttledReset: () => void
+
   public constructor (options?: MassLayerOptions) {
     super(options)
     L.Util.setOptions(this, L.Util.extend(defaultOptions, options))
     this.canvas = L.DomUtil.create('canvas', 'leaflet-zoom-animated') as HTMLCanvasElement
     this.ctx = this.canvas.getContext('2d')
     this.prepareIcons()
+    this.setThrottledReset(this.options)
+  }
+
+  private setThrottledReset (options: MassLayerOptions): void {
+    const threshold = options.throttleThreshold || defaultOptions.throttleThreshold
+    const duration = options.throttleDuration || defaultOptions.throttleDuration
+    this.throttledReset = options.points.length <= threshold ? this.reset : throttle(this.reset, duration)
   }
 
   public onAdd (map: L.Map): this {
@@ -67,6 +81,7 @@ export default class MassLayer extends L.Layer {
 
     map.on('click', this.onClick, this)
     map.on('mousemove', this.onMouseMove, this)
+    map.on('move', this.throttledReset, this)
     map.on('moveend', this.reset, this)
     map.on('zoomanim', this.zoomAnim, this)
     this.on('popupclose', this.onPopupClose)
@@ -78,6 +93,7 @@ export default class MassLayer extends L.Layer {
   public onRemove (map: L.Map): this {
     map.off('click', this.onClick, this)
     map.off('mousemove', this.onMouseMove, this)
+    map.off('move', this.throttledReset, this)
     map.off('moveend', this.reset, this)
     map.off('zoomanim', this.zoomAnim, this)
     this.off()
@@ -97,6 +113,9 @@ export default class MassLayer extends L.Layer {
   public setOptions (options: MassLayerOptions): void {
     this.closePopup()
     L.Util.setOptions(this, options)
+    this._map.off('move', this.throttledReset, this)
+    this.setThrottledReset(options)
+    this._map.on('move', this.throttledReset, this)
     this.prepareIcons()
     this.draw()
   }
@@ -104,10 +123,7 @@ export default class MassLayer extends L.Layer {
   public getOptions = (): MassLayerOptions => this.options
 
   public setPoints (points: MassPoint[]): void {
-    this.closePopup()
-    this.options.points = points
-    this.prepareIcons()
-    this.draw()
+    this.setOptions({ points })
   }
 
   public getPoints = (): MassPoint[] => this.options.points
@@ -298,8 +314,13 @@ export default class MassLayer extends L.Layer {
 
   private zoomAnim = (e: L.LeafletEvent & { center: L.LatLng, zoom: number }): void => {
     const scale = this._map.getZoomScale(e.zoom, this._map.getZoom())
-    const offset = (this._map as any)._latLngBoundsToNewLayerBounds(this._map.getBounds(), e.zoom, e.center).min
-    L.DomUtil.setTransform(this.canvas, offset, scale)
+    const position = L.DomUtil.getPosition(this.canvas)
+    const viewHalf = this._map.getSize().multiplyBy(0.5)
+    const currentCenterPoint = this._map.project(this._map.getCenter(), e.zoom)
+    const destCenterPoint = this._map.project(e.center, e.zoom)
+    const centerOffset = destCenterPoint.subtract(currentCenterPoint)
+    const topLeftOffset = viewHalf.multiplyBy(-scale).add(position).add(viewHalf).subtract(centerOffset)
+    L.DomUtil.setTransform(this.canvas, topLeftOffset, scale)
   }
 
   private onPopupClose = (): void => { this.click = undefined }

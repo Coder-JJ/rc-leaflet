@@ -1,4 +1,4 @@
-## MassPoints `v2.2.0+`
+## MassPoints `v1.1.0+`
 
 ### Examples
 
@@ -29,7 +29,7 @@
   return (
     <RCMap crs center>
       <TileLayer />
-      <MassPoints points iconUrl iconSize iconAnchor popupAnchor tooltipAnchor>
+      <MassPoints points iconUrl iconSize iconAnchor popupAnchor tooltipAnchor throttleThreshold throttleDuration>
         <Popup>
           { target => <div /> }
         </Popup>
@@ -56,6 +56,26 @@
 ```
 
 ### Props
+
+- throttleThreshold `v1.4.2+`
+
+  - type: `number`
+
+  - required: `false`
+
+  - default: `20480`
+
+  - 当点位数量大于设定的阈值时, 将使用节流的渲染函数
+
+- throttleDuration `v1.4.2+`
+
+  - type: `number`
+
+  - required: `false`
+
+  - default: `60`
+
+  - 节流渲染函数的渲染时间间隔
 
 - points
 
